@@ -1,0 +1,392 @@
+/* src/pages/AmazingAdventure.css */
+:root{
+  --bg-1: #fff4e3;
+  --bg-2: #e3fffb;
+  --card: rgba(179, 171, 63, 0.793);
+  --muted: #013a34;
+  --accent-from: #003830;
+  --accent-to: #004b15;
+  --gold: #eca109;
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+}
+
+.aa-root{
+  min-height:100vh;
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 60%);
+  color: #3c2900;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Hero */
+.aa-hero{
+  padding: 40px 0 60px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.aa-hero-inner{max-width:1100px;margin:0 auto;padding:30px 20px}
+.aa-hero-badge{font-size:36px;display:inline-block;background:linear-gradient(90deg,var(--accent-from),var(--accent-to));padding:10px;border-radius:12px;margin-bottom:8px}
+.aa-title{font-size:44px;margin:8px 0;color:transparent;background:linear-gradient(90deg,var(--accent-from),var(--accent-to));-webkit-background-clip:text;background-clip:text}
+.aa-sub{color:#0b0b0b;margin-bottom:18px;font-size:18px}
+.aa-meta{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px}
+.avatar img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
+.meta-name{font-weight:600}
+.meta-sub{color:#0b0b0b;font-size:13px}
+.cta-read .btn-primary{padding:8px 12px}
+
+/* wave */
+.aa-wave{position:absolute;left:-10%;right:-10%;bottom:-40px;height:220px;background: radial-gradient(800px 140px at 20% 10%, rgba(255,255,255,0.02), transparent 20%),linear-gradient(90deg, rgba(80,200,160,0.02), rgba(80,200,240,0.02));transform: rotate(-2deg);filter: blur(12px);border-radius:50%;pointer-events:none}
+
+/* main */
+.container{max-width:1100px;margin:0 auto;padding:28px}
+.card{background:var(--card);border-radius:14px;padding:22px;margin-bottom:22px;box-shadow: 0 8px 30px rgba(2,8,10,0.6), inset 0 1px 0 rgba(255,255,255,0.02);border: 1px solid rgba(255,255,255,0.02);}
+
+/* titles */
+.card-title{font-size:20px;margin:0 0 12px;color:#3a3301;font-weight:700}
+.lead{color:#013137;line-height:1.6}
+
+/* highlights */
+.highlist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.highlist li::before{content:"✨";margin-right:8px}
+
+/* cute gallery */
+.cute-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.cute-grid .g-item{background:rgba(255, 255, 255, 0.751);border-radius:14px;overflow:hidden;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,0.4);transition:transform 0.3s,box-shadow 0.3s}
+.cute-grid .g-item:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 12px 28px rgba(0,0,0,0.6)}
+.cute-grid img{width:100%;height:180px;object-fit:cover;border-bottom:2px solid rgba(255,255,255,0.05)}
+.cute-grid figcaption{padding:10px;font-size:0.9rem;color:#027d8e;font-style:italic}
+.gallery-quote{margin-top:20px;text-align:center;font-size:1.2rem;color:#ff6289;font-weight:500;background:linear-gradient(90deg, rgba(255,255,255,0.05), transparent);padding:12px 20px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.3)}
+
+/* timeline */
+.timeline{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.timeline li{background:var(--glass);padding:12px;border-radius:10px}
+.timeline li strong{display:block;color:#4b2f00}
+
+/* eats + map */
+.with-map .eats-map-row{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:start}
+@media (max-width:980px){ .with-map .eats-map-row{grid-template-columns:1fr} }
+
+.eats-quote{margin:8px 0 14px;color:#0b0b0b;font-style:italic}
+
+/* list */
+.eats-list{display:flex;flex-direction:column;gap:12px}
+.eat-card.list{display:flex;gap:12px;align-items:stretch;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.35);transition:transform .18s,box-shadow .18s, border .18s}
+.eat-card.list:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,0.45)}
+.eat-card.list.active{border:2px solid rgba(79,216,198,0.18);box-shadow:0 16px 40px rgba(0,200,160,0.12)}
+.eat-photo{flex:0 0 110px;border-radius:10px;overflow:hidden;min-width:110px;height:80px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
+.eat-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.eat-body{flex:1;display:flex;flex-direction:column;gap:8px}
+.eat-body h4{margin:0;font-size:1.05rem}
+.eat-body .muted{color:var(--muted);font-size:0.95rem}
+.eat-actions{margin-top:auto;display:flex;gap:8px}
+
+/* buttons */
+.btn-primary{background:linear-gradient(90deg,var(--accent-from),var(--accent-to));border:none;color:#04231b;padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(80,200,160,0.12)}
+.btn-primary.small{padding:6px 10px;font-size:13px}
+.btn-light{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);color:inherit;padding:6px 10px;border-radius:8px;cursor:pointer}
+.link-small{display:inline-block;color:var(--accent-from);font-weight:600;font-size:13px;text-decoration:none;align-self:center}
+
+/* map wrapper / leaflet fixes */
+.map-wrap{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 36px rgba(0,0,0,0.55);background:linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.06))}
+.map-wrap .leaflet-container{height:360px !important;width:100% !important;min-height:240px}
+.leaflet-popup-content button.btn-light{font-size:13px;padding:6px 8px}
+.map-note{margin-top:10px;color:var(-muted-);font-size:13px}
+
+/* related grid */
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.related-card{background:linear-gradient(180deg,rgba(23, 4, 4, 0.02),transparent);padding:8px;border-radius:10px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.related-card img{width:100%;height:120px;object-fit:cover;border-radius:8px}
+
+/* comments */
+.comments-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.comment{background:var(--glass-2);padding:10px;border-radius:8px}
+.comment-form{display:flex;gap:8px}
+.comment-form input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+
+/* floating CTA */
+.aa-cta{position:fixed;right:20px;bottom:20px;background:linear-gradient(90deg,var(--accent-from),var(--accent-to));color:#04231b;padding:16px;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.5);display:flex;gap:12px;align-items:center}
+
+/* responsive */
+@media (max-width:900px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .g-item.tall{height:260px}
+  .eats-grid{grid-template-columns:repeat(2,1fr)}
+  .related-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){
+  .aa-title{font-size:28px}
+  .gallery-grid{grid-template-columns:1fr}
+  .eats-grid{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .aa-cta{right:12px;left:12px;bottom:12px}
+}
+.leaflet-popup-content {
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+/* Top-left Back button */
+.page-back {
+  position: fixed;
+  left: 18px;
+  top: 18px;
+  z-index: 120;           /* above hero image */
+}
+.page-back .back-btn {
+  background: rgba(255,255,255,0.06);
+  color: #e6fff7;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+/* Slight hover for back button */
+.page-back .back-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+}
+
+/* Make hero title and CTA text more visible */
+.aa-hero .aa-title {
+  color: #bfffea;           /* lighter than before */
+  font-weight: 900;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);  /* improves legibility */
+}
+
+/* Hero subtitle contrast */
+.aa-hero .aa-sub {
+  color: #bcded6;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* CTA card text & buttons */
+.aa-cta {
+  z-index: 10;
+  position: relative;
+}
+.aa-cta .muted {
+  color: #cfeee6;          /* lighter muted color so it reads over panels */
+}
+.aa-cta .btn-primary {
+  background: linear-gradient(90deg,#4fd8c6,#f7a23b);
+  color: #03221b;
+  font-weight: 800;
+  box-shadow: 0 12px 30px rgba(79,216,198,0.08);
+  border-radius: 12px;
+  padding: 10px 16px;
+}
+
+/* secondary light button style */
+.btn-light {
+  background: rgba(255,255,255,0.03);
+  color: #e6fff7;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-light:hover {
+  box-shadow: 0 8px 20px rgba(1,10,10,0.6);
+}
+
+/* ensure hero photo doesn't cover controls */
+.aa-hero .hero-photo {
+  position: relative;
+  z-index: 1;
+}
+
+/* if hero has overlay or darkening, increase opacity for text background */
+.aa-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2,12,12,0.45), rgba(2,12,12,0.55));
+  z-index: 0;
+  border-radius: 10px;
+}
+.aa-hero > .aa-hero-inner { position: relative; z-index: 2; } /* put text above overlay */
+/* ---------- FONT COLOR FIXES ---------- */
+
+/* Root text colors */
+.aa-root {
+  color: #1c1c1c; /* darker, high-contrast for body text */
+}
+
+/* Titles */
+.aa-title {
+  color: #ffffff; /* fallback if gradient fails */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6); /* better readability */
+}
+
+/* Subtitles */
+.aa-sub {
+  color: #e0f6ef; /* softer light color */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* Card titles */
+.card-title {
+  color: #222; /* dark for light bg */
+}
+
+/* Lead / main paragraphs */
+.lead {
+  color: #2a2a2a; /* body text darker */
+}
+
+/* Muted / secondary text */
+.meta-sub,
+.eats-quote,
+.map-note {
+  color: #6a7d7a; /* medium contrast */
+}
+
+/* Buttons */
+.btn-primary {
+  color: #fff; /* always white on accent bg */
+}
+.btn-light {
+  color: #f0f0f0; /* light text on translucent bg */
+}
+/* Compact hero section */
+.aa-hero {
+  padding: 24px 0 36px;   /* was 40px 0 60px */
+}
+
+.aa-hero-inner {
+  padding: 16px 12px;     /* was 30px 20px */
+  max-width: 900px;       /* reduce width a bit */
+}
+
+.aa-hero-badge {
+  font-size: 24px;        /* was 36px */
+  padding: 6px 12px; 
+  margin-bottom: 6px;
+}
+
+.aa-title {
+  font-size: 32px;        /* was 44px */
+  margin: 6px 0;
+}
+
+.aa-sub {
+  font-size: 16px;        /* was 18px */
+  margin-bottom: 12px;
+}
+
+.aa-meta {
+  margin-top: 10px;       /* was 14px */
+  gap: 8px;
+}
+
+.avatar img {
+  width: 44px;            /* was 56px */
+  height: 44px;
+}
+/* Highlight important heading or text */
+.essentials-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ff8800;  /* bright orange */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  margin-bottom: 12px;
+}
+
+/* Buttons - make them pop */
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;  /* smooth hover */
+}
+
+/* Hover/focus effect - turns orange */
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(90deg, #ff7e00, #ffae42);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(255,140,0,0.4);
+  transform: translateY(-2px);
+}
+/* Ensure eats-list sits above the map so Center button remains visible and clickable */
+.with-map .eats-list {
+  position: relative;
+  z-index: 3;            /* put list above the map */
+}
+
+/* Lower the map's stacking so it doesn't visually cover cards */
+.with-map .map-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure eat-card layout keeps actions visible at the bottom */
+.eat-card.list {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  transition: transform .18s, box-shadow .18s, border .18s;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.96));
+  overflow: visible;     /* avoid overflow clipping of child elements */
+}
+
+/* Keep actions aligned and not pushed out */
+.eat-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Slightly shrink Center button so it fits nicely */
+.btn-light.small {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* Improve popup sizing and padding (Leaflet) */
+.leaflet-popup-content {
+  padding: 10px 12px;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+.eat-card.list:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  cursor: pointer;
+}
+/* Fix for eat-actions row */
+.eat-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;              /* allow wrapping on smaller widths */
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 8px;
+}
+
+/* Make both buttons equal size and stay inside */
+.eat-actions .btn-primary.small,
+.eat-actions .btn-light.small {
+  flex: 1;                      /* let them share space evenly */
+  min-width: 90px;              /* avoid collapsing too small */
+  text-align: center;
+}

@@ -1,0 +1,1074 @@
+/* BestTimeToTravel.css (updated visual + date pick + sparkle) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg: #fbf8f4;
+  --text: #063b33;
+  --muted: #617572;
+  --accent1: #28e0c6;
+  --accent2: #ffb35c;
+  --glass-border: rgba(210, 208, 208, 0.77);
+  --card-shadow: 0 28px 60px rgba(6,6,6,0.12);
+  --radius: 14px;
+}
+
+/* base */
+*{ box-sizing: border-box; }
+html,body,#root{ height:100%; }
+body{
+  margin:0;
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* layout container */
+.container{ max-width:1180px; margin:48px auto; padding:0 20px; }
+
+/* HERO */
+.bt-hero{
+  background-size:cover;
+  background-position:center;
+  padding:48px 0 84px;
+  color:#fff;
+  position:relative;
+  overflow:visible;
+}
+.bt-hero::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-40px; height:140px;
+  background:linear-gradient(180deg, rgba(251,248,244,0), var(--bg));
+  pointer-events:none;
+}
+.bt-title{
+  font-size:clamp(28px,4.2vw,56px);
+  font-weight:800;
+  margin:6px 0 8px;
+  color: #cbfdf6;
+  letter-spacing: -0.6px;
+  text-shadow: 0 8px 30px rgba(255,255,255,0.06);
+}
+.bt-sub{
+  color: rgba(0, 0, 0, 0.75);
+  max-width:980px;
+  margin-bottom:16px;
+  font-weight:500;
+}
+
+/* search glass */
+.glass-card{
+  background: linear-gradient(180deg, rgba(195, 255, 237, 0.826), rgba(0, 82, 85, 0.556));
+  border-radius:18px;
+  padding:16px;
+  box-shadow: var(--card-shadow);
+  border:1px solid var(--glass-border);
+}
+.search-row{
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+}
+.input-group{
+  display:flex; align-items:center; gap:12px; padding:12px 14px;
+  border-radius:12px; border:1px solid rgba(0,0,0,0.04);
+  background: #f3f6f5; min-width:0; flex:1;
+}
+.input-group input, .input-group select{
+  border:0; background:transparent; outline:none; color:var(--text); font-weight:600; width:100%;
+  font-family: "Inter", "Poppins", sans-serif;
+  font-size:14px;
+}
+.input-group .icon{ width:18px; height:18px; color: #2f9a88; opacity:0.95; flex:0 0 18px; }
+
+/* date-range inputs inline */
+.date-range { display:flex; gap:8px; align-items:center; }
+.date-range input[type="date"] { background: transparent; padding:6px 8px; border-radius:8px; border: none; color:var(--text); font-weight:600; }
+.date-sep { color:var(--muted); font-weight:700; }
+
+/* search button */
+.btn-search{
+  background: linear-gradient(90deg,var(--accent1),var(--accent2));
+  border:none; padding:12px 18px; border-radius:12px;
+  box-shadow: 0 12px 30px rgba(6,6,6,0.12); cursor:pointer; display:flex; align-items:center; gap:8px; font-weight:800;
+  color:#041216;
+}
+.btn-text{ color:#041216; font-weight:700; }
+
+.search-meta{ margin-top:10px; color:var(--muted); font-weight:600; display:flex; gap:16px; flex-wrap:wrap; }
+
+/* main */
+.bt-main{ margin-top:46px; padding-bottom:80px; }
+
+/* results summary */
+.results-summary{ margin-bottom:18px; display:flex; gap:18px; align-items:center; justify-content:space-between; }
+.results-title h2{ margin:0; font-size:20px; font-weight:800; color:var(--text);}
+.results-title .highlight{ color: #01181a; letter-spacing:0.8px; }
+.results-title .date-range-label{ font-weight:600; color:var(--muted); margin-left:10px; font-size:13px; }
+
+/* sparkle effect when results appear */
+.sparkle { position:relative; }
+.sparkle::after{
+  content:"✨";
+  position:absolute; right:-22px; top:-6px; font-size:18px; animation: sparklePop 1.2s ease-in-out;
+  opacity:0.0;
+}
+@keyframes sparklePop {
+  0%{ transform: translateY(6px) scale(0.8); opacity:0; }
+  15%{ transform: translateY(-6px) scale(1.1); opacity:1; }
+  55%{ transform: translateY(-14px) scale(0.9); opacity:0.2; }
+  100%{ transform: translateY(6px) scale(0.8); opacity:0; }
+}
+
+/* inline weather */
+.weather-inline{
+  display:flex; gap:14px; align-items:center; padding:12px; border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.94));
+  box-shadow: 0 8px 32px rgba(6,6,6,0.06); border:1px solid rgba(0,0,0,0.04);
+}
+.weather-inline-head{ flex:1; }
+.weather-inline-temp{ font-weight:900; font-size:20px; color:#113a34; }
+.weather-inline-desc{ color:var(--muted); margin-top:6px; font-size:14px; }
+.weather-mini-meta{ margin-top:8px; color:var(--muted); font-size:13px; }
+.weather-inline-img img{ width:160px; height:90px; object-fit:cover; border-radius:8px; }
+
+/* two columns & cards */
+.two-cols{ display:grid; grid-template-columns: 1fr 460px; gap:22px; align-items:start; }
+@media(max-width:980px){ .two-cols{ grid-template-columns:1fr; } }
+
+.card{ background:#fff; border-radius:14px; padding:18px; box-shadow: 0 18px 46px rgba(6,6,6,0.06); border:1px solid rgba(0,0,0,0.04); color:var(--text); }
+.advice h3, .weather h3{ margin:0 0 8px; font-size:18px; font-weight:700; }
+.lead{ color:#2f6a63; font-weight:700; margin-bottom:6px; font-size:15px; }
+.action-row{ margin-top:12px; display:flex; gap:12px; align-items:center; }
+.btn-gradient{ background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#041216; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800; box-shadow:0 12px 30px rgba(6,6,6,0.12); }
+.btn-ghost{ background:transparent; border:2px solid rgba(11, 31, 26, 0.645); color:#2f6a63; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; }
+
+/* chart + legend */
+.chart-canvas{ height:240px; padding:6px 2px; }
+.chart-legend{ margin-top:10px; display:flex; gap:10px; align-items:center; color:var(--muted); font-weight:600; }
+.chip{ display:inline-block; width:12px; height:12px; border-radius:6px; margin-right:8px; vertical-align:middle; }
+.chip.orange{ background:#ff9b4b; }
+.chip.gray{ background: rgba(6,20,28,0.12); }
+
+/* results grid */
+.results-grid-wrap{ margin-top:24px; }
+.grid-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.grid-header h3{ margin:0; font-weight:800; color:var(--text); }
+.btn-clear{ background:transparent; border:none; color:var(--muted); font-weight:700; cursor:pointer; }
+
+/* cards grid */
+.cards-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap:18px;
+}
+.result-card{ display:flex; flex-direction:column; padding:0; overflow:hidden; min-height:210px; position:relative; }
+.card-media img{ width:100%; height:160px; object-fit:cover; display:block; }
+.card-body{ padding:12px 14px; display:flex; flex-direction:column; gap:8px; }
+.card-title-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.result-title{ margin:0; font-size:1rem; font-weight:800; color:var(--text); }
+.pill{ background:linear-gradient(90deg,#60e3c9,#ffd18b); padding:6px 8px; border-radius:999px; font-weight:800; color:#01181a; font-size:12px; }
+.result-excerpt{ margin:0; font-size:0.95rem; color:var(--muted); }
+.card-meta{ display:flex; justify-content:space-between; align-items:center; margin-top:auto; gap:12px; }
+.meta-left{ display:flex; gap:8px; align-items:center; }
+.meta-location{ font-weight:700; color:var(--text); font-size:13px; }
+.meta-rating{ color:var(--muted); font-weight:700; font-size:13px; }
+.meta-right{ display:flex; align-items:center; gap:12px; }
+.meta-price{ font-weight:900; color:#0d3a33; }
+.meta-actions button{ margin-left:6px; }
+
+/* loading / empty */
+.loading-row, .empty-row{ padding:28px; text-align:center; color:var(--muted); font-weight:700; display:flex; gap:12px; align-items:center; justify-content:center; }
+.loader-dot { width:10px; height:10px; border-radius:99px; background:var(--accent1); box-shadow:0 0 18px rgba(40,224,198,0.4); animation: bounce 900ms infinite alternate; }
+@keyframes bounce { 0%{ transform: translateY(0);} 100%{ transform: translateY(-8px);} }
+
+/* load more / end */
+.load-more-row{ display:flex; justify-content:center; margin-top:18px; }
+.end-row{ text-align:center; color:var(--muted); margin-top:12px; font-weight:700; }
+
+/* recommended section */
+.recommended-wrap{ margin-top:32px; }
+.recommended-wrap h3 {
+  font-weight: 900;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  letter-spacing: 0.4px;
+  color: #ffffff; /* strong white */
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6),
+               0 0 6px rgba(40,224,198,0.8);
+}
+.recommended-grid{ display:flex; gap:12px; flex-wrap:wrap; }
+.rec-card{ display:flex; gap:10px; align-items:center; padding:12px; min-width:220px; }
+.rec-card img{ width:120px; height:80px; object-fit:cover; border-radius:8px; }
+.rec-body strong{ display:block; font-weight:800; margin-bottom:6px; }
+.rec-meta{ color:var(--muted); font-weight:700; }
+
+/* floating scroll top */
+.scroll-top{
+  position:fixed; right:20px; bottom:100px; background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  border:none; padding:10px 14px; border-radius:999px; color:#041216; font-weight:800; box-shadow: 0 14px 40px rgba(6,6,6,0.18); cursor:pointer; z-index:2000;
+}
+
+/* responsive */
+@media (max-width:760px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .weather-inline-img img{ width:120px; height:80px; }
+  .bt-title{ font-size:28px; }
+}
+/* Video hero background styling */
+.bt-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px; /* adjust height as needed */
+  display: block;
+  background-image: url("../images/Kyoto.png"); /* fallback background */
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transform-origin: center;
+  /* slightly dim to improve contrast */
+  filter: saturate(0.95) brightness(0.86);
+}
+
+/* overlay to enhance text readability on top of video */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(6,10,12,0.30), rgba(6,10,12,0.18) 40%, rgba(255,255,255,0.02) 100%);
+  mix-blend-mode: normal;
+}
+
+/* ensure hero inner content sits above video + overlay */
+.bt-hero-inner {
+  position: relative;
+  z-index: 2;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+/* make sure poster fallback is visible for a moment on slow connections */
+.hero-bg-video[poster] {
+  background-size: cover;
+}
+
+/* small responsive tweak: reduce hero height on smaller screens */
+@media (max-width: 980px) {
+  .bt-hero { min-height: 360px; }
+}
+@media (max-width: 640px) {
+  .bt-hero { min-height: 300px; }
+}
+/* image caption overlay under card images */
+.card-media { position: relative; }
+.card-media img { display: block; width: 100%; height: 160px; object-fit: cover; }
+.img-caption {
+  position: absolute;
+  left: 12px;
+  bottom: 8px;
+  right: 12px;
+  padding: 6px 10px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.18));
+  color: #ded9d9;
+  font-weight:700;
+  font-size: 13px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+}
+@media (max-width: 760px) {
+  .img-caption { font-size: 12px; bottom: 6px; left: 8px; right: 8px; }
+}
+/* ---------- AESTHETIC EXCERPTS & IMAGE CAPTIONS ---------- */
+
+/* image caption overlay under card images (tweak for softer look) */
+.card-media { position: relative; }
+.card-media img { display: block; width: 100%; height: 160px; object-fit: cover; }
+.img-caption {
+  position: absolute;
+  left: 12px;
+  bottom: 8px;
+  right: 12px;
+  padding: 7px 10px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0.14));
+  color: #d5d0d0;
+  font-weight:700;
+  font-size: 13px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* small decorative dot before caption to feel crafted */
+.img-caption::before {
+  content: "✦";
+  font-size: 12px;
+  opacity: 0.95;
+  color: #ed910f;
+  transform: translateY(-1px);
+}
+
+/* aesthetic/excerpt text under title */
+.result-excerpt {
+  margin: 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(6, 20, 28, 0.48); /* muted dark with softness */
+  font-weight: 600;
+  display: block;
+  line-height: 1.25;
+  padding-top: 6px;
+  letter-spacing: 0.1px;
+  transition: color 180ms ease, transform 180ms ease;
+  position: relative;
+}
+
+/* add subtle pastel icon before each excerpt for vibe */
+.result-excerpt::before {
+  content: "•";
+  color: rgba(40, 224, 198, 0.95); /* pastel-accent (teal) */
+  display: inline-block;
+  width: 16px;
+  margin-right: 8px;
+  transform: translateY(-1px);
+  font-weight: 800;
+}
+
+/* hover/active emphasis: make excerpt slightly more saturated */
+.result-card:hover .result-excerpt {
+  color: rgba(6, 20, 28, 0.66);
+  transform: translateY(-2px);
+}
+
+/* recommended pill tweak for contrast with pastel look */
+.pill { background: linear-gradient(90deg,#181818,#0f0e0e); padding:6px 10px; border-radius:999px; font-weight:800; color:#01181a; font-size:12px; }
+
+/* responsive tweaks */
+@media (max-width: 760px) {
+  .img-caption { font-size: 12px; bottom: 6px; left: 8px; right: 8px; padding:6px 8px; }
+  .card-media img { height: 140px; }
+  .result-excerpt { font-size: 0.93rem; }
+}
+
+/* Neutral Details button (default state) */
+.btn-details {
+  background: #ffffff;
+  color: #2f2f2f;
+  border: 1px solid rgba(255, 138, 61, 0.4);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Hover state — turn orange */
+.btn-details:hover {
+  background: linear-gradient(90deg, #ff8a3d 0%, #ff5f2e 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 34px rgba(255, 110, 50, 0.28);
+  transform: translateY(-2px);
+}
+
+/* Active/clicked state */
+.btn-details:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 20px rgba(255, 110, 50, 0.2);
+  opacity: 0.96;
+}
+/* ---------- Fix Top pick title + Recommended pill ---------- */
+
+/* Top pick title clearly visible in black */
+.result-title {
+  color: #111 !important;       /* solid black */
+  font-weight: 900;
+  background: none;             /* remove faded white bg */
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  position: static;             /* keep inside normal flow */
+  text-shadow: none;            /* remove blur */
+}
+
+/* Recommended pill orange style */
+.pill {
+  background: linear-gradient(90deg, #ff8a3d, #ff5f2e); 
+  color: #fff !important;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  box-shadow: 0 6px 18px rgba(255,110,50,0.25);
+}
+/* ---------- Make result title (Top pick) crisp / floating over image ---------- */
+
+/* ensure card container clips image but allows title overlap */
+.result-card { overflow: visible; }
+
+/* place the title so it overlaps the image area, visible and crisp */
+.result-title {
+  position: relative;
+  display: inline-block;
+  z-index: 50;                      /* above image overlays */
+  margin-top: -42px;                /* lift into the image area */
+  margin-left: 12px;
+  background: rgba(255,255,255,0.98);
+  color: rgba(4,28,24,0.98);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(6,6,6,0.12);
+  font-weight: 900;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* make room so excerpt & meta don't overlap with the lifted title */
+.card-body { padding-top: 22px; }
+
+/* reduce opacity of any leftover faint duplicate headers (defensive) */
+.result-card .faded-title, .result-card .secondary-title {
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* keep caption overlay on image but below title */
+.img-caption { z-index: 40; }
+
+/* ensure recommended pill doesn't collide with title */
+.pill { position: relative; z-index: 60; }
+
+/* small responsive tweak so overlap behaves on mobile */
+@media (max-width: 760px) {
+  .result-title { margin-top: -28px; margin-left: 10px; padding: 7px 10px; border-radius: 10px; font-size: 0.98rem; }
+  .card-body { padding-top: 18px; }
+}
+/* -------- Stronger section headings -------- */
+.results-title h2,
+.advice h3,
+.weather h3 {
+  color: #1a1a1a !important;   /* deep teal/black */
+  font-weight: 900;
+}
+
+.recommended-wrap h3 {
+  color: #0d3a33 !important;
+  font-weight: 900;
+}
+
+.results-summary h2,
+.results-summary .highlight {
+  color: #00bfa5 !important;   /* teal accent for "Results for CITY" */
+  font-weight: 900;
+}
+
+/* -------- Make "From" and "To" inputs visible -------- */
+.input-group input,
+.input-group select {
+  color: #0d3a33 !important;   /* dark text */
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* placeholder color tweak so it's visible but lighter than entered text */
+.input-group input::placeholder {
+  color: #666 !important;
+  opacity: 1;
+}
+
+/* -------- Date picker inputs contrast -------- */
+.date-range input[type="date"] {
+  color: #0d3a33 !important;
+  font-weight: 700;
+  background: #fff !important;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.date-range input[type="date"]::placeholder {
+  color: #777 !important;
+}
+/* ----------------- HERO VIDEO + OVERLAY FIX ----------------- */
+
+/* video background should look alive */
+.hero-bg-video {
+  filter: saturate(0.9) brightness(0.85) contrast(1);
+}
+
+/* overlay just a subtle gradient at the bottom for readability */
+.bt-hero .hero-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(6,10,12,0.15) 0%,   /* very light dark at top */
+    rgba(6,10,12,0.25) 40%,  /* slightly stronger mid */
+    rgba(6,10,12,0.40) 70%,  /* darker near bottom */
+    rgba(6,10,12,0.50) 100%  /* strongest at bottom */
+  );
+  mix-blend-mode: normal;
+  transition: background 240ms ease;
+}
+
+/* ensure hero content stays clear above video */
+.bt-hero-inner { position: relative; z-index: 4; }
+
+/* title – keep pill only semi-transparent so video still shows behind */
+.bt-title {
+  display: inline-block;
+  background: rgba(255,255,255,0.72);
+  color: #00231b !important;
+  padding: 8px 14px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(6,6,6,0.12);
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+
+/* subtitle visible but softer */
+.bt-sub {
+  color: rgb(175, 255, 246) !important;
+  font-weight: 600;
+}
+.bt-title {
+  background: rgba(255,255,255,0.56); /* lighter so video shows more */
+  color: #0b3a34;
+  padding: 6px 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(6,6,6,0.08);
+  -webkit-text-stroke: 0.1px rgba(2,18,16,0.3);
+}
+/* ---------------- RECOMMENDED CARDS FIX ---------------- */
+
+/* Ensure recommended section header is bold + visible */
+.recommended-wrap h3 {
+  font-weight: 900;
+  color: #00c4a7; /* teal accent, can swap with orange (#ff9b4b) if preferred */
+  margin-bottom: 14px;
+}
+
+/* Recommended card body text */
+.rec-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.rec-card strong {
+  font-weight: 800;
+  font-size: 15px;
+  color: #0b3a34; /* dark green */
+}
+
+.rec-meta {
+  color: #2f6a63; /* darker muted green */
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* ---------------- VIEW BUTTON FIX ---------------- */
+
+/* Make View button match Details button */
+.rec-card .btn-ghost {
+  border: 1px solid rgba(255, 179, 92, 0.8); /* orange border */
+  color: #ff9b4b;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+.rec-card .btn-ghost:hover {
+  background: #ff9b4b;
+  color: #fff;
+  border-color: #ff9b4b;
+  box-shadow: 0 6px 18px rgba(255, 155, 75, 0.4);
+}
+/* Recommended section heading - high contrast fix */
+.recommended-wrap h3 {
+  font-weight: 900;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  letter-spacing: 0.4px;
+
+  /* bright accent for visibility */
+color: #28e0c6;
+text-shadow: 0 2px 12px rgba(0,0,0,0.6),
+             0 0 6px rgba(40, 224, 198, 0.8);
+
+
+}
+/* ---------- FORCE HIGH-CONTRAST SECTION HEADINGS (FINAL FIX) ---------- */
+
+/* Make headings fully visible on dark background */
+.results-title h2,
+.advice h3,
+.weather h3,
+.grid-header h3,
+.recommended-wrap h3 {
+  color: #020202 !important;           /* strong white for max contrast */
+  opacity: 1 !important;               /* ensure not faded */
+  font-weight: 900 !important;
+  font-size: 1.35rem !important;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px !important;
+  position: relative;
+  z-index: 1000 !important;
+  text-shadow:
+     0 6px 18px rgba(0, 0, 0, 0.353),      /* heavy grounding shadow */
+     0 0 8px rgba(0, 0, 0, 0.147);
+  -webkit-text-stroke: 0.2px rgba(0,0,0,0.25); /* tiny stroke to keep edges crisp */
+  user-select: none;                   /* prevent accidental blue selection */
+}
+
+/* Keep the highlighted city name green/teal to preserve accent */
+.results-title h2 .highlight {
+  color: #28e0c6 !important;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(40,224,198,0.12);
+  font-weight: 900 !important;
+}
+
+/* If you prefer orange accent headings anywhere, use .heading-orange */
+.heading-orange {
+  color: #ff9b4b !important;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(255,155,75,0.12) !important;
+}
+
+/* Defensive: force full opacity on parent containers if they were dimmed */
+.recommended-wrap,
+.results-summary,
+.bt-main {
+  opacity: 1 !important;
+}
+
+/* Slight responsive tweak (smaller screens) */
+@media (max-width: 760px) {
+  .results-title h2,
+  .advice h3,
+  .weather h3,
+  .grid-header h3,
+  .recommended-wrap h3 {
+    font-size: 1.1rem !important;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.351);
+  }
+}
+/* ---------------- Compact modal styles ---------------- */
+.bt-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8,8,8,0.48);
+  backdrop-filter: blur(6px) saturate(0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4000;
+  padding: 20px;
+}
+
+.bt-modal {
+  width: 380px;
+  max-width: calc(100% - 40px);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(2,8,10,0.55);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-thumb img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-body {
+  padding: 18px 20px 20px;
+}
+
+.modal-title {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0d3a33;
+}
+
+.modal-sub {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  color: #516b67;
+  line-height: 1.35;
+}
+
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  color: #0d3a33;
+  font-weight: 700;
+}
+
+.modal-info strong {
+  color: #ff8a3d;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modal-actions .btn-link {
+  background: transparent;
+  border: none;
+  color: #2f6a63;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-actions .btn-primary {
+  background: linear-gradient(90deg, #28e0c6, #ffb35c);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 800;
+  color: #041216;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(6,6,6,0.12);
+  transition: transform 0.2s ease;
+}
+
+.modal-actions .btn-primary:hover {
+  transform: translateY(-2px);
+}
+/* ----- Search layout fixes: prevent overlap and keep things responsive ----- */
+
+/* make the search container allow wrapping and expand height when needed */
+.bt-search {
+  position: relative;        /* allow absolute children if needed */
+  z-index: 30;               /* keep search above hero overlays */
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* search form row: allow wrapping so items won't overlap */
+.search-row {
+  display: flex;
+  flex-wrap: wrap;          /* critical: items move to next line instead of overlapping */
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* input-group sizing rules:
+   inputs share available space but have a sane min-width so they don't collapse */
+.search-row .input-group {
+  flex: 1 1 220px;          /* grow, shrink, base width */
+  min-width: 220px;         /* keep inputs usable */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* date range usually needs more space (two fields inside) */
+.search-row .input-group.date-range {
+  flex: 2 1 320px;          /* wider than other inputs */
+  min-width: 280px;
+}
+
+/* make icon inside inputs not shift layout */
+.search-row .input-group .icon {
+  flex: 0 0 auto;
+  margin-left: 6px;
+}
+
+/* input & select defaults in search row */
+.search-row input,
+.search-row select {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  min-height: 44px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(0,0,0,0.06);
+  font-weight: 700;
+  color: #082a26;
+}
+
+/* date picker container — ensure the popup doesn't get clipped and sits above */
+.search-row .date-range .date-range-picker,
+.search-row .date-range .drp-container,
+.search-row .date-range .drp {
+  position: relative;
+  z-index: 60 !important; /* ensure date popup is above hero overlay */
+}
+
+/* Search button: don't let it shrink, keep it visible and clickable */
+.btn-search {
+  flex: 0 0 auto;
+  min-width: 120px;
+  height: 44px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+  cursor: pointer;
+  z-index: 60 !important;
+  box-shadow: 0 12px 30px rgba(2, 8, 8, 0.18);
+}
+
+/* visually emphasize disabled/active state */
+.btn-search[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* small screens: stack inputs vertically (no overlap) */
+@media (max-width: 880px) {
+  .search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-row .input-group,
+  .search-row .input-group.date-range {
+    min-width: 0;
+    width: 100%;
+    flex: 1 1 auto;
+  }
+  .btn-search {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* hero card adjustments so it grows with wrapped inputs */
+.glass-card {
+  align-items: stretch;
+  display: block;
+  /* ensure the container grows to house wrapped items */
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* If some hero overlay was capturing clicks, raise search card z-index */
+.bt-hero-inner .bt-search {
+  position: relative;
+  z-index: 80;
+}
+.inline-range {
+  display: flex;
+  gap: 8px;
+}
+
+.range-input {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  background: #fff;
+  min-width: 120px;
+  cursor: pointer;
+}
+.range-input .small-label {
+  font-size: 11px;
+  color: #555;
+}
+.range-input .value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+.range-input.active {
+  box-shadow: 0 0 8px rgba(0,180,120,0.35);
+  border-color: #00c49a;
+}
+
+/* --- Inline date range buttons --- */
+.inline-range {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.range-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  min-width: 120px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: box-shadow .18s ease, border-color .18s ease, transform .06s ease;
+}
+.range-input .small-label {
+  font-size: 11px;
+  color: #516b67;
+  font-weight: 700;
+}
+.range-input .value {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0b2b28;
+}
+.range-input:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+.range-input.has-value {
+  border-color: rgba(0,196,150,0.18);
+  box-shadow: 0 8px 28px rgba(0,196,150,0.06);
+}
+
+/* Make sure the date picker popup doesn't overlap other search controls */
+.bt-search .input-group.date-range { z-index: 50; }
+
+/* Back button next to Search */
+.back-btn {
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 800;
+  color: #0a443d;
+  margin-right: 8px;
+}
+.back-btn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+/* Back button fixed at top-left */
+.back-btn-hero {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2000;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.back-btn-hero:hover {
+  background: rgba(0,0,0,0.25);
+  transform: translateY(-2px);
+}
+
+/* Inline date inputs */
+.two-dates {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.two-dates input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 14px;
+  font-weight: 600;
+}
+/* Back button top-left */
+.back-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Fancy input groups */
+.fancy-input {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: 0.2s ease;
+}
+.fancy-input:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.fancy-input input,
+.fancy-input select {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  flex: 1;
+}
+.fancy-input .icon {
+  color: #ffda8f;
+}
+
+/* Date picker popup */
+.date-picker-popup {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}

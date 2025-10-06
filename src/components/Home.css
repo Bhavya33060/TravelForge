@@ -1,0 +1,1167 @@
+/* Home.css - Polished + animated island theme
+   Modified so entire page is light cream in light mode and full-black in dark mode.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+:root{
+  --primary: #40E0D0;
+  --secondary: #FFA62B;
+  --accent: #FF6F91;
+  --bg: #fee9ba;          /* light cream main background */
+  --text: #004D40;
+  --muted: #626262;
+  --glass-bg: rgba(255, 255, 255, 0.596);
+  --glass-border: rgba(255,255,255,0.6);
+  --card-shadow: 0 12px 30px rgba(4,77,64,0.06);
+  --soft-shadow: 0 8px 20px rgba(4,77,64,0.05);
+  --ring: rgba(255,255,255,0.9);
+
+  /* footer background variable (defaults to inherit page background in light) */
+  --footer-bg: var(--bg);
+  --footer-text: #071312;
+}
+.home-root {
+  background-color: var(--bg);
+  transition: background-color 0.3s ease;
+}
+
+/* dark mode overrides - make the whole page black and adapt accents */
+.home-root.dark {
+  --bg: #000000; /* FULL black for dark mode */
+  --text: #E6FFF7;
+  --muted: #9ccfbe;
+  --glass-bg: rgba(7, 57, 48, 0.52);
+  --glass-border: rgba(255,255,255,0.06);
+  --primary: #1fb9a9;
+  --secondary: #ff9a2a;
+  --accent: #ff7aa0;
+  --card-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  --soft-shadow: 0 10px 28px rgba(0,0,0,0.18);
+
+  /* footer is black in dark mode */
+  --footer-bg: #000000;
+  --footer-text: #9ccfbe;
+}
+
+/* light mode footer explicit override - ensure it matches the page background */
+.home-root.light {
+  --footer-bg: var(--bg);
+}
+
+/* base */
+*{box-sizing:border-box}
+html, body, #root {
+  height: 100%;
+  margin: 0;
+
+  color: var(--text);
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* make home full-bleed while keeping an inner content width for readability */
+/* Home page should stretch full screen */
+.home-page {
+  width: 100%;
+  min-height: 100vh;        /* fill full height of viewport */
+  margin: 0;
+  padding: 0;               /* remove extra side padding */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* optional: hero section full bleed */
+.hero-wrapper {
+  width: 100%;
+  padding: 2rem 3rem;       /* adjust if you still want spacing */
+  box-sizing: border-box;
+}
+
+/* nav should span the full width */
+.nav {
+  width: 100%;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}
+
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 1rem;border-radius:12px}
+.nav.glass{background:linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.64));border:1px solid rgba(0,0,0,0.04);box-shadow:var(--soft-shadow)}
+.home-root.dark .nav.glass{background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.48));border:1px solid rgba(255, 255, 255, 0.309);box-shadow:var(--card-shadow)}
+
+.logo{max-height:56px;width:auto;object-fit:contain;margin-right:0.6rem;border-radius:8px;padding:1px}
+.brand{font-weight:800;font-size:1.1rem;color:#004D40;display:flex;align-items:center;gap:8px}
+.nav-right{display:flex;gap:0.6rem;align-items:center}
+.mode-toggle,.signin{background:#40E0D0;border:1px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:12px;cursor:pointer;font-weight:700;color:var(--text);transition:transform 160ms,box-shadow 160ms}
+.mode-toggle:hover,.signin:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+
+/* HERO */
+.hero-wrapper{margin-top:1rem}
+.hero{display:flex;gap:1.25rem;align-items:flex-start;padding:1.25rem;border-radius:16px}
+.hero.glass{background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,249,236,0.92));border:1px solid rgba(0,0,0,0.04);box-shadow:var(--card-shadow)}
+.home-root.dark .hero.glass{background:linear-gradient(180deg, rgba(8,8,8,0.95), rgba(8,8,8,0.92));border:1px solid rgba(255,255,255,0.04);box-shadow:var(--card-shadow)}
+
+.hero-left{flex:1.6;padding:0.5rem 0}
+.hero-title{margin:0 0 0.4rem 0;font-size:2rem;line-height:1.02;font-weight:800;color:var(--text)}
+.accent{background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
+.hero-sub{margin:0 0 0.9rem 0;color:var(--muted)}
+
+/* tabs */
+.tabs{Display:flex;gap:0.6rem;margin-bottom:0.9rem;flex-wrap:wrap}
+.tab{padding:8px 12px;border-radius:12px;border:none;cursor:pointer;font-weight:700;background:transparent;color:var(--muted);transition:transform 160ms,box-shadow 160ms}
+.tab.active{background:linear-gradient(90deg,var(--primary),var(--secondary));color:#0b0b0b;box-shadow:0 12px 30px rgba(64,224,208,0.08);transform:translateY(-2px)}
+
+/* search */
+.search-form{width:100%}
+.search-row{display:grid;grid-template-columns:1fr 160px 160px 160px auto;gap:0.7rem;align-items:center;margin-bottom:0.6rem}
+.search-input{padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.92);outline:none;color:var(--text);box-shadow:0 6px 18px rgba(0,0,0,0.02)}
+.home-root.dark .search-input{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06);color:var(--text)}
+.search-input.date{min-width:140px}
+.search-row select{padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.92);color:var(--text)}
+
+.btn-search{padding:12px 16px;border-radius:12px;border:none;font-weight:800;cursor:pointer;color:#00251f;background:linear-gradient(90deg,var(--primary),var(--secondary));box-shadow:0 12px 30px rgba(20, 148, 135, 0.1);transition:transform 160ms,box-shadow 200ms}
+.btn-search:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 44px rgba(64,224,208,0.16)}
+.btn-search:active{transform:translateY(0) scale(0.99)}
+
+/* hero-right */
+.hero-right{width:320px;display:flex;flex-direction:column;gap:12px;align-items:flex-end;position:relative}
+.feature-card{position:relative;border-radius:18px;overflow:hidden;width:280px;height:180px;box-shadow:0 12px 32px rgba(219, 204, 204, 0.12);transition:transform 260ms,box-shadow 260ms}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 30px 70px rgba(0,0,0,0.14)}
+.feature-img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.03);transition:transform 420ms cubic-bezier(.2,.9,.2,1)}
+.feature-card:hover .feature-img{transform:scale(1.04)}
+.feature-overlay{position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.04));color:#fff}
+.feature-overlay h4{margin:0;font-size:1.05rem;font-weight:700}
+.feature-overlay p{margin:4px 0 0 0;font-size:0.85rem;color:rgba(105, 139, 217, 0.92)}
+
+.thumbs{display:flex;gap:0.8rem;margin-top:6px}
+.thumb{width:86px;height:86px;border-radius:12px;object-fit:cover;box-shadow:0 8px 20px rgba(0,0,0,0.12);cursor:pointer;border:4px solid rgba(255,255,255,0.85);transition:transform 260ms,box-shadow 260ms}
+.thumb:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 22px 48px rgba(0,0,0,0.16)}
+.thumb.circle{border-radius:999px;width:84px;height:84px;border:4px solid rgba(116, 116, 221, 0.96)}
+
+/* results */
+.results-wrap{margin-top:1rem}
+.results-wrap h3{margin:0 0 12px 0;color:var(--text)}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+
+/* card */
+/* card */
+.card {
+  /* Add this line back */
+  background: linear-gradient(180deg, #fff, #fff9f2);
+  border:3px solid rgba(20, 62, 67, 0.695);
+  /* The other card styles are not shown in your snippet */
+}
+
+/* This dark mode override will now work */
+.home-root.dark .card {
+  background: linear-gradient(180deg, rgba(18,18,18,0.95), rgba(12,12,12,0.9));
+  border: 1px solid rgba(255, 255, 255, 0.225);
+}
+/* Light mode styles for the small CTA floating-card */
+.floating-card.glass {
+  background: var(--glass-bg); /* Use the glass-bg variable for consistency */
+  border: 1px solid rgba(0,0,0,0.06); /* Add a light border */
+  color: var(--text); /* Ensure text is readable in light mode */
+  box-shadow:var(--card-shadow);
+}
+
+/* Dark mode styles for the small CTA floating-card */
+.home-root.dark .floating-card.glass {
+  background: var(--glass-bg); /* This variable will be dark in dark mode */
+  border: 1px solid var(--glass-border); /* This variable will be dark in dark mode */
+  color: var(--text); /* Ensure text is readable in dark mode */
+  box-shadow:var(--card-shadow);
+}
+.card-media{width:100%;height:140px;object-fit:cover}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-body h4{margin:0;color:var(--text);font-weight:700;font-size:1.05rem}
+.city-gradient{font-weight:800;font-size:1.15rem;background: linear-gradient(90deg, var(--primary), var(--accent));-webkit-background-clip: text;color:transparent}
+.price{margin:0;color:var(--muted);font-size:0.95rem}
+
+.card-actions{margin-top:auto;display:flex;gap:8px}
+.btn-primary{background:linear-gradient(90deg,var(--primary),var(--secondary));color:#00251f;border:none;padding:8px 12px;border-radius:10px;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(64,224,208,0.06);transition:transform 160ms,box-shadow 160ms}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(64,224,208,0.12)}
+.btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:10px;cursor:pointer}
+
+/* shimmer */
+.shimmer{position:relative;overflow:hidden;background:linear-gradient(90deg, rgba(240,240,240,0.85), rgba(230,230,230,0.8), rgba(240,240,240,0.85));background-size:400% 100%;animation:shimmer 1.1s linear infinite;min-height:220px;border-radius:12px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ---------- STATS ---------- */
+.stats-cards{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap}
+.stat-card{position:relative;display:flex;gap:1rem;align-items:center;padding:14px 16px;min-width:190px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,249,236,0.92));box-shadow:0 10px 28px rgba(4,77,64,0.06);transition:transform 260ms}
+.home-root.dark .stat-card{background:linear-gradient(180deg, rgba(18,18,18,0.95), rgba(12,12,12,0.9));box-shadow:0 10px 28px rgba(92, 91, 91, 0.435)}
+.stat-left{width:64px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#00251f;font-size:1.6rem;font-weight:800}
+.stat-right{display:flex;flex-direction:column;gap:4px}
+.stat-number{font-weight:900;font-size:1.35rem;color:#004D40}
+.stat-label{color:var(--muted);font-weight:700;font-size:0.98rem}
+.stat-note{font-size:0.78rem;color:rgba(0,0,0,0.45)}
+
+/* postcard (discover) */
+.postcard{position:relative;width:100%;border-radius:14px;overflow:visible;cursor:pointer}
+.postcard-media-wrap{position:relative;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(213, 230, 230, 0.06)}
+.postcard-img{width:100%;height:170px;object-fit:cover;transition:transform 380ms}
+.postcard-body{background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,249,236,0.92));border-radius:10px;margin-top:-28px;padding:14px;box-shadow:0 10px 30px rgba(4,77,64,0.04)}
+.home-root.dark .postcard-body{background:linear-gradient(180deg, rgba(12,12,12,0.96), rgba(8,8,8,0.92));box-shadow:0 10px 30px rgba(123, 121, 121, 0.22)}
+.postcard-title{font-weight:800;color:var(--text)}
+.postcard-caption{color:var(--muted);font-size:0.92rem}
+
+/* For Travel Pros */
+/* ---------- Make Travel Pros cards readable (light + dark) ---------- */
+
+/* Ensure the card body text is visible */
+.pro-card.boutique,
+.pro-card.boutique .pro-text,
+.pro-card.boutique .pro-hint,
+.pro-card.boutique .pro-title {
+  color: var(--text);
+  opacity: 1 !important;             /* override accidental fading */
+}
+
+/* Slightly darker title for better legibility while preserving the style */
+.pro-card.boutique .pro-title {
+  color: var(--text);
+  font-weight: 900;
+  font-size: 1.02rem;
+  letter-spacing: -0.2px;
+  text-shadow: none;
+}
+
+/* Make the hint/subtitle clearly readable but a touch muted */
+.pro-card.boutique .pro-hint {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.95rem;
+  opacity: 0.98 !important;
+}
+
+/* CTA buttons — make Open / ♥ visible and tactile */
+.pro-card.boutique .pro-open {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: #00251f;
+  padding: 10px 14px;
+  font-weight: 800;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(64,224,208,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.pro-card.boutique .pro-open:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(64,224,208,0.12); }
+
+.pro-card.boutique .pro-save {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: var(--accent);
+  font-weight: 800;
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+}
+
+/* If a soft overlay is dimming content, reduce it */
+.pro-card.boutique::after {
+  /* remove heavy overlay if previously applied */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Dark-mode adjustments — keep contrast but softer tones */
+.home-root.dark .pro-card.boutique .pro-title { color: var(--text); }
+.home-root.dark .pro-card.boutique .pro-hint  { color: rgba(172, 51, 51, 0.78); }
+.home-root.dark .pro-card.boutique .pro-open  { color: #001a17; }
+.home-root.dark .pro-card.boutique .pro-save  { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); color: var(--accent); }
+
+/* Small layout tweak: ensure left column text doesn't get pushed under media */
+.pro-card.boutique .pro-inner { align-items: center; gap: 16px; }
+
+/* Accessibility: make focus states visible */
+.pro-card.boutique .pro-open:focus,
+.pro-card.boutique .pro-save:focus,
+.pro-card.boutique:focus { outline: 3px solid rgba(64,224,208,0.12); outline-offset: 6px; }
+
+.pros-wrap{margin-top:2.2rem}
+.pros-wrap h3{margin:0 0 10px 0;color:var(--text)}
+.cute-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:14px}
+.pro-card.boutique{position:relative;border-radius:20px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.99), rgba(252,250,248,0.96));box-shadow:0 18px 46px rgba(4,77,64,0.06);cursor:pointer;transition:transform 260ms}
+.home-root.dark .pro-card.boutique{background:linear-gradient(180deg, rgba(12,12,12,0.95), rgba(8,8,8,0.92));box-shadow:0 18px 46px rgba(116, 116, 116, 0.22)}
+.pro-header-pill{position:absolute;left:50%;transform:translateX(-50%);top:-12px;width:120px;height:28px;border-radius:999px;background:linear-gradient(90deg, rgba(64,224,208,0.14), rgba(255,110,150,0.12));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,0.06);z-index:2;pointer-events:none;backdrop-filter:blur(3px)}
+.pro-header-pill .pill-dot{font-size:14px;opacity:0.98;color:#1f73ae;text-shadow:0 2px 6px rgba(0,0,0,0.12)}
+.pro-inner{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:6px;z-index:1}
+.pro-text{flex:1;display:flex;flex-direction:column;gap:8px}
+.title-row{display:flex;align-items:center;gap:10px}
+.pro-title{margin:0;font-weight:900;font-size:1.04rem;color:var(--text);letter-spacing:-0.2px;line-height:1.05}
+.pro-emoji{font-size:1.05rem;margin-left:2px;transform:translateY(1px)}
+.pro-hint{margin:0;color:var(--muted);font-size:0.95rem;line-height:1.4;opacity:0.95}
+.pro-cta-row{display:flex;gap:10px;margin-top:6px}
+.pro-open{background:linear-gradient(90deg,var(--primary),var(--secondary));color:#00251f;border:none;padding:8px 12px;border-radius:12px;font-weight:800;cursor:pointer;box-shadow:0 10px 26px rgba(64,224,208,0.06)}
+.pro-open:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(64,224,208,0.12)}
+.pro-save{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:10px;cursor:pointer;color:#ff4d6d;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+.pro-media{width:108px;display:flex;justify-content:center;align-items:center}
+.media-wrap{position:relative;width:84px;height:84px;border-radius:999px;display:flex;align-items:center;justify-content:center;overflow:visible}
+.media-halo{position:absolute;width:120px;height:120px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:999px;background:radial-gradient(circle at 50% 40%, rgba(64,224,208,0.18), rgba(255,110,150,0.12) 40%, rgba(255,255,255,0) 70%);filter:blur(10px);z-index:0;animation:haloPulse 3.8s ease-in-out infinite}
+@keyframes haloPulse{0%{transform:translate(-50%,-50%) scale(0.98);opacity:0.85}50%{transform:translate(-50%,-50%) scale(1.06);opacity:1}100%{transform:translate(-50%,-50%) scale(0.98);opacity:0.85}}
+.media-img{width:84px;height:84px;border-radius:999px;object-fit:cover;z-index:1;box-shadow:0 12px 30px rgba(0,0,0,0.12);border:6px solid rgba(255,255,255,0.92);transition:transform 260ms cubic-bezier(.2,.9,.2,1)}
+.pro-card.boutique:hover .media-img{transform:translateY(-6px) rotate(-3deg) scale(1.02)}
+.pro-badge{width:74px;height:74px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.04);position:relative;overflow:visible}
+.pro-thumb{width:100%;height:100%;border-radius:999px;object-fit:cover;display:block}
+.pro-badge:before{content:"";position:absolute;left:-6px;top:-6px;right:-6px;bottom:-6px;border-radius:999px;z-index:-1;background:conic-gradient(from 0deg, rgba(255,255,255,0.0), rgba(255,255,255,0.0));opacity:0.12;filter:blur(6px);transition:opacity 200ms, transform 220ms;animation:slowSpin 6s linear infinite}
+@keyframes slowSpin{0%{transform:rotate(0deg);background:conic-gradient(from 0deg, var(--primary), var(--accent), var(--secondary), var(--primary))}100%{transform:rotate(360deg)}}
+.pro-card:hover .pro-badge:before{opacity:0.22;transform:scale(1.06)}
+.floating-card{transform-origin:center;transition:transform 260ms}
+.floating-card:hover{transform:translateY(-8px) scale(1.01)}
+/* --- Fix Travel Pros card titles & hints visibility --- */
+.pro-card.boutique .pro-title {
+  color: var(--text) !important;    /* main text color */
+  font-weight: 900;
+  font-size: 1.05rem;
+  opacity: 1 !important;            /* force full visibility */
+  text-shadow: none !important;
+}
+
+.pro-card.boutique .pro-hint {
+  color: var(--muted) !important;   /* slightly softer than title */
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 1 !important;            /* no fading */
+}
+
+/* Ensure emojis next to titles stay visible */
+.pro-card.boutique .pro-emoji {
+  opacity: 1 !important;
+}
+
+/* Debug helper (optional) — temp red border to confirm override works */
+.pro-card.boutique .pro-title {
+  /* border: 1px dashed red; */
+}
+
+/* --- Travel Pros Card Titles Fix --- */
+.pro-card.boutique .pro-title {
+  color: var(--text) !important;   /* use main readable color */
+  font-weight: 800;                /* bold like "Explore" */
+  font-size: 1.05rem;               /* keep consistent size */
+  line-height: 1.2;
+  opacity: 1 !important;            /* fully visible */
+  text-shadow: none !important;     /* remove faded look */
+}
+
+/* Keep emoji aligned + visible */
+.pro-card.boutique .pro-emoji {
+  opacity: 1 !important;
+  font-size: 1.05rem;
+  margin-left: 4px;
+}
+
+
+/* FOOTER */
+/* The footer background uses --footer-bg, which is tied to the page background per mode */
+.site-footer{
+  margin-top:60px;
+  padding:50px 0 40px;
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  font-size:15px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px}
+.footer-col h5{font-size:1.05rem;font-weight:800;margin-bottom:12px;color:var(--footer-text);position:relative}
+.footer-col h5::after{content:"";position:absolute;bottom:-4px;left:0;width:36px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--secondary))}
+.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.footer-col a{color:var(--muted);text-decoration:none;transition:0.2s}
+.footer-col a:hover{color:var(--primary);transform:translateX(4px)}
+.newsletter p{margin:0 0 8px;font-size:0.9rem;color:var(--muted)}
+.newsletter-form{display:flex;gap:8px}
+.newsletter-form input{flex:1;padding:10px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);font-size:0.9rem;background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,250,0.98));color:var(--text)}
+.home-root.dark .newsletter-form input{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+.newsletter-form button{padding:10px 16px;border:none;border-radius:8px;background:linear-gradient(90deg,var(--primary),var(--secondary));font-weight:700;color:#00251f;cursor:pointer}
+.footer-divider{margin:30px 0;height:1px;background:linear-gradient(90deg, rgba(0,0,0,0.03), rgba(0,0,0,0.06));border-radius:1px}
+.footer-bottom{display:flex;flex-direction:column;gap:20px}
+.partners-strip{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.partners-strip img{width:80px;height:40px;object-fit:cover;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08);transition:transform 0.2s}
+.partners-strip img:hover{transform:scale(1.05)}
+.footer-meta{display:flex;flex-direction:column;align-items:center;gap:12px;font-size:0.9rem}
+.socials{display:flex;gap:12px}
+.social.glass{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--glass-bg);color:var(--text);font-size:1.2rem;transition:0.25s;box-shadow:var(--soft-shadow);border:1px solid var(--glass-border)}
+.social.glass:hover{transform:translateY(-4px);background:linear-gradient(90deg,var(--primary),var(--accent));color:#00251f}
+.legal{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted)}
+.legal a{color:var(--muted);text-decoration:none}
+.legal a:hover{color:var(--primary);text-decoration:underline}
+
+/* ===================================================
+   Key change: make the mid "dark-strip" inherit the page
+   background so it never forces a different block color.
+   Light mode: becomes the same light cream as the rest.
+   Dark mode: becomes the site black background.
+   =================================================== */
+.dark-strip {
+  /* previously forced a dark background — now transparent/inherit */
+  background: transparent;
+  padding: 18px 0;
+  margin-top: 2.2rem;
+}
+/* in dark mode, ensure it still uses the page background */
+.home-root.dark .dark-strip {
+  background: var(--bg); /* which is #000 in dark mode */
+}
+
+/* responsiveness */
+@media (max-width:980px){
+  .hero{flex-direction:column}
+  .hero-right{width:100%;flex-direction:row;justify-content:center}
+  .feature-card{width:48%;height:140px}
+  .thumb{width:64px;height:64px;border-width:3px;border-radius:10px}
+  .thumb.circle{width:64px;height:64px}
+  .search-row{grid-template-columns:1fr 120px 120px auto}
+  .partners-strip img{width:72px;height:34px}
+  .footer-inner{padding:0 1rem}
+}
+@media (max-width:760px){
+  .postcard-img{height:150px}
+  .postcard-body{margin-top:-22px;padding:12px}
+  .results-grid{gap:18px}
+  .pro-badge{width:60px;height:60px}
+  .pro-thumb{width:60px;height:60px}
+  .stats-cards{gap:0.6rem}
+  .stat-card{min-width:140px;padding:10px}
+  .stat-left{width:48px;height:48px;font-size:1.05rem;border-radius:10px}
+}
+@media (max-width:640px){
+  .postcard-img{height:130px}
+  .postcard-body{margin-top:-18px;padding:10px}
+  .polaroid-shadow{display:none}
+  .search-row{grid-template-columns:1fr;gap:0.6rem}
+  .stats-cards{flex-direction:column}
+  .partners-strip img{width:64px;height:30px}
+}
+
+/* micro interactions & animations */
+@keyframes haloPulse{0%{transform:translate(-50%,-50%) scale(0.98);opacity:0.85}50%{transform:translate(-50%,-50%) scale(1.06);opacity:1}100%{transform:translate(-50%,-50%) scale(0.98);opacity:0.85}}
+@keyframes slowSpin{0%{transform:rotate(0deg);background:conic-gradient(from 0deg, var(--primary), var(--accent), var(--secondary), var(--primary))}100%{transform:rotate(360deg)}}
+@keyframes softPulse{0%{box-shadow:0 10px 28px rgba(4,77,64,0.04)}50%{box-shadow:0 18px 44px rgba(64,224,208,0.06)}100%{box-shadow:0 10px 28px rgba(4,77,64,0.04)}}
+.stat-card{animation:softPulse 6s ease-in-out infinite}
+
+/* accessibility focus */
+.tab:focus,.btn-search:focus,.mode-toggle:focus,.signin:focus,.btn-primary:focus,.btn-ghost:focus,.pro-card.boutique:focus,.social.glass:focus{outline:3px solid rgba(64,224,208,0.16);outline-offset:3px}
+
+/* --------- Cute Traveler Stories styles ---------- */
+/* (unchanged from your original styles) */
+.stories-wrap { margin-top: 2.2rem; }
+.stories-wrap h3 { margin-bottom: 12px; color: var(--text); }
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.story-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,249,236,0.94));
+  border-radius: 18px;
+  overflow: visible;
+  box-shadow: 0 22px 50px rgba(4,77,64,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+.home-root.dark .story-card {
+  background: linear-gradient(180deg, rgba(12,12,12,0.96), rgba(8,8,8,0.92));
+  box-shadow: 0 22px 50px rgba(97, 96, 96, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.157);
+}
+
+/* ribbon */
+.story-ribbon {
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(64,224,208,0.12), rgba(255,110,150,0.12));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  z-index: 5;
+  pointer-events: none;
+}
+.story-ribbon .ribbon-dot { margin-right: 6px; }
+.story-ribbon .ribbon-text { font-weight:700; color: var(--text); font-size:0.88rem; }
+
+/* media */
+.story-media-wrap {
+  position: relative;
+  height: 160px;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0,0,0,0.04), transparent);
+}
+.story-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1), filter 420ms;
+  transform-origin: center;
+  will-change: transform;
+}
+.story-card:hover .story-img { transform: scale(1.06) translateY(-6px); }
+
+/* overlay controls on image */
+.story-media-overlay {
+  position: absolute;
+  inset: 0;
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+  pointer-events: none;
+}
+.story-like {
+  pointer-events: auto;
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+  border-radius: 12px;
+  border: 0;
+  padding: 8px 10px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transform: translateZ(0);
+}
+.story-like:hover { transform: translateY(-3px) scale(1.02); }
+
+/* meta pill */
+.story-meta-pill {
+  pointer-events: none;
+  background: rgba(255,255,255,0.9);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight:700;
+  color: var(--text);
+  box-shadow: 0 10px 24px rgba(4,77,64,0.06);
+}
+
+/* body */
+.story-body {
+  padding: 14px 16px 18px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  flex:1;
+}
+.story-title { margin:0; font-weight:900; font-size:1.05rem; color:var(--text); letter-spacing:-0.2px; }
+.story-excerpt { margin:0; color:var(--muted); font-size:0.95rem; line-height:1.45; }
+
+/* footer area */
+.story-footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:auto;
+}
+.story-author { display:flex; align-items:center; gap:10px; }
+.author-avatar { width:44px; height:44px; border-radius:999px; overflow:hidden; box-shadow: 0 10px 28px rgba(0,0,0,0.06); border:4px solid rgba(255,255,255,0.92); }
+.author-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+.author-meta { display:flex; flex-direction:column; }
+.author-name { font-weight:700; color:var(--text); font-size:0.92rem; }
+.author-sub { font-size:0.82rem; color:var(--muted); }
+
+/* small play/read CTA */
+.story-actions .btn-primary.small { padding:8px 12px; font-size:0.88rem; border-radius:10px; }
+
+/* liked state */
+.story-card[data-liked] {
+  box-shadow: 0 28px 70px rgba(255,110,150,0.06);
+  transform: translateY(-6px) scale(1.01);
+}
+.story-card[data-liked] .story-like { background: linear-gradient(90deg, var(--primary), var(--secondary)); color:#00251f; }
+
+/* polaroid shadow tweak for stories */
+.story-card .polaroid-shadow { position: absolute; bottom: -12px; left: 6%; right: 6%; height: 28px; background: radial-gradient(80% 40% at 50% 30%, rgba(0,0,0,0.12), rgba(0,0,0,0.02)); filter: blur(8px); border-radius:50%; z-index:-1; transform: scaleX(1.08); opacity:0.9; }
+
+/* focus for keyboard */
+.story-card:focus-within, .story-card:focus { outline: 3px solid rgba(64,224,208,0.12); outline-offset:6px; }
+
+/* micro-confetti */
+.micro-confetti { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
+.confetti-dot { position: absolute; font-size: 14px; opacity: 0.95; animation: confettiFloat 900ms ease-out forwards; }
+@keyframes confettiFloat {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  70% { transform: translateY(-48px) scale(1.08); opacity: 0.95; }
+  100% { transform: translateY(18px) scale(0.98); opacity: 0; }
+}
+
+/* responsive */
+@media (max-width: 980px) {
+  .stories-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:18px; }
+  .story-card { min-height: 300px; }
+}
+@media (max-width: 640px) {
+  .stories-grid { grid-template-columns: 1fr; gap:14px; }
+  .story-media-overlay { padding: 8px; }
+  .author-avatar { width:48px; height:48px; }
+}
+
+/* Top Deals 3x2 grid */
+.top-deals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 per row */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* center grid */
+}
+/* ===== Top Deals readability fixes ===== */
+
+/* Make the price line clearly visible and bold */
+.top-deals-grid .price {
+  margin: 0;
+  color: rgba(0, 77, 64, 0.72); /* darker teal for legibility */
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 1 !important;        /* override any fading */
+  text-shadow: none;
+}
+
+/* Ensure the numeric price inside the <strong> stands out */
+.top-deals-grid .price strong {
+  color: var(--text);          /* main page text color */
+  font-weight: 900;
+  -webkit-text-fill-color: unset;
+}
+
+/* Make the ghost "Book" button readable and tappable */
+.top-deals-grid .btn-ghost {
+  background: rgba(255,255,255,0.98);         /* subtle white card background */
+  border: 1px solid rgba(0,0,0,0.08);         /* visible soft border */
+  color: var(--text);                         /* readable foreground */
+  font-weight: 800;
+  padding: 10px 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  opacity: 1 !important;                      /* prevent faded/disabled look */
+  pointer-events: auto !important;
+  transition: transform 160ms, box-shadow 160ms;
+}
+.top-deals-grid .btn-ghost:active,
+.top-deals-grid .btn-ghost:focus,
+.top-deals-grid .btn-ghost:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.09);
+}
+
+/* If some global rule sets buttons to look disabled, make sure the Book button is active */
+.top-deals-grid .card .btn-ghost[disabled] {
+  opacity: 0.55;           /* still show disabled if actually disabled in DOM */
+}
+
+/* Small spacing/tidy for smaller cards */
+.top-deals-grid .card-body { padding-bottom: 18px; }
+
+/* If your design wants 'Starting from' lighter than amount, keep that contrast but still readable */
+.top-deals-grid .price::before {
+  content: "";
+  /* no-op placeholder in case you later want a small decorative dash or icon */
+}
+
+/* Card consistency for Top Deals */
+.top-deals-grid .card {
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+.card-media {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Pros: force exact 3 columns x 2 rows and consistent heights */
+.pros-3x2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* Ensure each .pro-card has consistent size */
+.pros-3x2 .pro-card {
+  min-height: 180px;         /* adjust if you want taller cards */
+  display: flex;
+  border-radius: 20px;
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* Make pro-inner content and media align correctly */
+.pros-3x2 .pro-inner {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Constrain the media image to a fixed circular size so all cards align */
+.pros-3x2 .pro-media-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 6px solid rgba(255,255,255,0.92);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* Slightly smaller on mobile/tablet */
+@media (max-width: 880px) {
+  .pros-3x2 {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+  }
+  .pros-3x2 .pro-media-img { width: 64px; height: 64px; border-width:5px; }
+}
+
+@media (max-width: 640px) {
+  .pros-3x2 {
+    grid-template-columns: 1fr; /* stack on phones */
+    gap: 14px;
+  }
+  .pros-3x2 .pro-inner { gap: 12px; }
+  .pros-3x2 .pro-media-img { width: 56px; height: 56px; border-width:4px; }
+}
+
+/* ---------- Minimal centered section heading (clean) ---------- */
+.minimal-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px auto 28px auto;
+  position: relative;
+  z-index: 2;
+  pointer-events: none; /* heading decorative only */
+}
+
+/* plain emoji, no box */
+.minimal-heading .heading-emoji {
+  font-size: 20px;         /* adjust emoji size */
+  line-height: 1;
+  transform: translateY(-2px); /* optical align with text */
+  pointer-events: none;
+}
+
+/* headline style: gradient text */
+/* NOTE: your markup uses <h2>, not <h3>. target h2 so the heading gets styled. */
+.minimal-heading h2,
+.minimal-heading h3 { /* keep compatibility if some pages use h3 */
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text); /* fallback color */
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* gradient visible in supporting browsers */
+  position: relative;
+  padding: 0 6px;
+  pointer-events: none;
+}
+
+/* If a browser or an overlay makes gradient-text invisible,
+   ensure fallback color remains readable by explicitly restoring it for accessibility */
+.minimal-heading h2::selection,
+.minimal-heading h3::selection { background: rgba(0,0,0,0.06); }
+
+/* thin blurred underline bar (subtle glow) */
+.minimal-heading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: 240px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(64,224,208,0.12), rgba(255,166,43,0.10), rgba(255,110,150,0.12));
+  filter: blur(8px);
+  z-index: -1;
+  opacity: 0.95;
+}
+
+/* small animated sparkle (subtle) */
+.minimal-heading::before {
+  content: "✨";
+  position: absolute;
+  left: calc(50% - 26px);
+  top: calc(100% - 6px);
+  font-size: 12px;
+  opacity: 0.0;
+  transform: translateX(-50%) translateY(0) scale(0.9);
+  animation: sparklePop 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sparklePop {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.8); }
+  10%  { opacity: 0.6; transform: translateX(-50%) translateY(-6px) scale(1.05); }
+  30%  { opacity: 0.0; transform: translateX(-50%) translateY(-12px) scale(0.9); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(6px) scale(0.8); }
+}
+
+/* Responsive heading sizing */
+@media (max-width: 880px) {
+  .minimal-heading h2, .minimal-heading h3 { font-size: 1.35rem; }
+  .minimal-heading::after { width: 180px; height: 7px; top: calc(100% + 6px); }
+}
+@media (max-width: 540px) {
+  .minimal-heading { gap: 8px; }
+  .minimal-heading .heading-emoji { font-size: 18px; }
+  .minimal-heading h2, .minimal-heading h3 { font-size: 1.1rem; }
+  .minimal-heading::after { width: 140px; height: 6px; top: calc(100% + 6px); }
+}
+
+/* final small tweak: ensure .section-heading (older style) doesn't conflict */
+.section-heading { /* keep simple compatibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 20px auto;
+}
+
+/* Ensure Top Deals heading is visible */
+.section-heading h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text); /* fallback for browsers without gradient support */
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+/* City names (Beaches, Nightlife, etc.) */
+.city-gradient {
+  font-weight: 800;
+  font-size: 1.25rem;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.3px;
+}
+/* ---------- Top Deals: price + buttons (cleaned) ---------- */
+
+/* "Starting from $XXX" — full visibility + readable weight */
+.top-deals-grid .price {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 1 !important;
+  letter-spacing: -0.2px;
+  text-shadow: none;
+  color: var(--muted);         /* lighter muted color for "Starting from" */
+}
+
+/* Highlight the numeric price so it stands out */
+.top-deals-grid .price strong {
+  font-weight: 800;
+  color: var(--secondary);   /* accent color for price number */
+}
+
+/* Explore (primary) button — consistent sizing with Book button */
+.top-deals-grid .card-actions .btn-primary {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: #00251f;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(64,224,208,0.06);
+  transition: transform 160ms, box-shadow 160ms;
+}
+.top-deals-grid .card-actions .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(64,224,208,0.12);
+}
+
+/* Book (ghost) button — visible, active, and matches size of Explore */
+.top-deals-grid .card-actions .btn-ghost {
+  background: #ffffff;
+  border: 1.5px solid var(--secondary);
+  color: var(--secondary);
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 1 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  transition: background 200ms ease, color 200ms ease, transform 160ms, box-shadow 160ms;
+}
+.top-deals-grid .card-actions .btn-ghost:hover,
+.top-deals-grid .card-actions .btn-ghost:focus {
+  background: var(--secondary);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+/* Keep a visible disabled state if the button is actually disabled */
+.top-deals-grid .card-actions .btn-ghost[disabled] {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* minor spacing fix so actions sit nicely inside card */
+.top-deals-grid .card-body { padding-bottom: 18px; }
+.top-deals-grid .card-actions { gap: 12px; align-items: center; }
+
+/* ===========================
+   FORCE VISIBLE Card Headings
+   (Strong final override — placed at END of CSS)
+   =========================== */
+
+/* Primary fix: remove transparencies, text-clip, blend modes, overlays from Pro cards */
+.pro-card.boutique .pro-title,
+.pro-card.boutique .pro-title * {
+  color: var(--text) !important;
+  -webkit-text-fill-color: unset !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.18 !important;
+  display: inline-block !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+/* Ensure emoji next to title stays visible */
+.pro-card.boutique .pro-emoji {
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  -webkit-text-fill-color: unset !important;
+  font-size: 1.05rem !important;
+  z-index: 6 !important;
+}
+
+/* Remove any pseudo-element overlay that could dim the heading */
+.pro-card.boutique::before,
+.pro-card.boutique::after,
+.pro-card.boutique .overlay,
+.pro-card.boutique .card-overlay {
+  background: transparent !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* If a parent container (like .dark-strip) has lowered opacity,
+   re-enable full opacity for inner text */
+.dark-strip .pro-card.boutique,
+.dark-strip .pro-card.boutique * {
+  opacity: 1 !important;
+}
+
+/* Force readable titles in both light/dark */
+.home-root.dark .pro-card.boutique .pro-title,
+.home-root.light .pro-card.boutique .pro-title {
+  color: var(--text) !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+/* Accessibility: focus still visible */
+.pro-card.boutique .pro-title:focus,
+.pro-card.boutique:focus-within .pro-title {
+  outline: 3px solid rgba(64,224,208,0.12) !important;
+  outline-offset: 6px !important;
+}
+
+/* --- Fix Pro Card Heading Visibility --- */
+.pro-card.boutique .title-row {
+  position: relative;
+  z-index: 10;              /* put titles above the pill */
+}
+
+.pro-card.boutique .pro-title {
+  color: var(--text) !important;
+  font-weight: 900 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+.pro-card.boutique .pro-emoji {
+  opacity: 1 !important;
+  z-index: 11;              /* keep emoji above pill too */
+}
+
+.pro-card.boutique .pro-header-pill {
+  z-index: 1 !important;    /* keep pill background under text */
+}
+
+/* --- Traveler Stories fix: force visible titles & excerpts --- */
+.story-card .story-title {
+  color: var(--text) !important;      /* main readable text color */
+  -webkit-text-fill-color: unset !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.25 !important;
+  z-index: 20 !important;             /* stay above any overlays */
+  position: relative !important;
+}
+
+.story-card .story-excerpt {
+  color: var(--muted) !important;     /* softer, but visible */
+  opacity: 1 !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.story-card .author-name {
+  color: var(--text) !important;
+  opacity: 1 !important;
+  font-weight: 700;
+}
+
+.story-card .author-sub {
+  color: var(--muted) !important;
+  opacity: 0.95 !important;
+  font-size: 0.85rem;
+}
+
+/* Kill any overlay/pseudo that dims the card content */
+.story-card::before,
+.story-card::after,
+.story-card .overlay {
+  display: none !important;
+  background: transparent !important;
+  opacity: 1 !important;
+}
+
+/* Minimal override to guarantee readable Traveler Stories text */
+.story-card .story-title,
+.pro-card.boutique .pro-title {
+  color: var(--text) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: unset !important;
+  background: none !important;
+}
+
+.story-card .story-excerpt,
+.pro-card.boutique .pro-hint {
+  color: var(--muted) !important;
+  opacity: 1 !important;
+}
+
+/* make sure meta-pill is readable on images */
+.story-meta-pill {
+  background: rgba(255,255,255,0.92) !important;
+  color: var(--text) !important;
+  z-index: 60 !important;
+}
+/* Avatar + badge styles for Home nav */
+.profile-avatar {
+  padding: 0;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.profile-avatar:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+
+.email-badge {
+  background: rgba(2, 34, 30, 0.06);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #083;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive: hide badge on narrow screens */
+@media (max-width: 800px) {
+  .email-badge { display: none; }
+}
+/* ---------- PROFILE VISIBILITY FIX ---------- */
+
+/* Container for profile pill */
+.profile-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-bg);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* Email text — make it readable & bold */
+.profile-email {
+  color: #000 !important;          /* black in light mode */
+  font-weight: 800 !important;     /* bold */
+  font-size: 0.95rem !important;
+  text-shadow: none !important;
+  letter-spacing: 0.2px;
+}
+
+/* Avatar icon stays dark but can pop slightly */
+.profile-pill .avatar {
+  color: #222 !important;
+  font-size: 1rem;
+}
+
+/* Dark mode adjustments */
+.home-root.dark .profile-pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.home-root.dark .profile-email {
+  color: #fff !important;          /* white text on black bg */
+  font-weight: 800 !important;
+}
+
+/* Logout button styling (cleaner, consistent with theme) */
+.profile-logout {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  color: #00251f;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}

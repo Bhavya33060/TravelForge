@@ -1,0 +1,210 @@
+/* Overlay */
+.signup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Card */
+.signup-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  box-shadow: 0 14px 60px rgba(0, 0, 0, 0.25);
+  transform-style: preserve-3d;
+}
+
+.signup-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Header */
+.signup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.signup-emoji {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 6px;
+  pointer-events: none;
+  line-height: 1;
+}
+.signup-header h2 {
+  margin: 0;
+  font-weight: 700;
+  color: #222;
+}
+.signup-sub {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Form */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.form-field label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Input wrap uses flex so left icon sits outside the input box visually */
+.input-wrap {
+  display: flex;
+  align-items: center;
+  position: relative; /* for toggle-pw absolute */
+  gap: 10px;
+}
+
+/* left icon as a normal inline element (not absolute) */
+.left-icon {
+  font-size: 20px;
+  color: #214b43;
+  flex: 0 0 auto;
+  margin-left: 2px;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* input expands to fill remaining space */
+.input-wrap input {
+  flex: 1 1 auto;
+  padding: 12px 44px 12px 12px; /* leave right for toggle */
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  color: #05221d; /* ensure visible typed text */
+  background: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+/* keep input readable in autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #05221d !important;
+  box-shadow: 0 0 0 30px #fff inset !important;
+}
+
+/* input focus */
+.input-wrap input:focus {
+  border-color: #40E0D0;
+  box-shadow: 0 0 0 3px rgba(64, 224, 208, 0.12);
+  outline: none;
+}
+
+/* Eye / toggle button (right side) */
+.toggle-pw {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  color: #5b3b3b;
+}
+.toggle-pw:focus {
+  outline: 2px solid rgba(64, 224, 208, 0.28);
+  border-radius: 8px;
+}
+
+/* Buttons */
+.signup-submit {
+  margin-top: 10px;
+  background: linear-gradient(90deg, #40E0D0, #FFA62B);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #00251f;
+  transition: transform 0.15s;
+}
+.signup-submit:hover {
+  transform: translateY(-2px);
+}
+.signup-footer {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+.signup-link {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: #40E0D0;
+  cursor: pointer;
+}
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Password strength meter */
+.strength-meter {
+  margin-top: 6px;
+  height: 8px;
+  background: #eee;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.strength-bar {
+  height: 100%;
+  transition: width 0.3s ease, background 0.3s ease;
+  border-radius: 6px;
+}
+.strength-text {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Colors */
+.strength-meter.weak .strength-bar { background: #ff6b6b; }
+.strength-meter.medium .strength-bar { background: #feca57; }
+.strength-meter.strong .strength-bar { background: #1dd1a1; }
+
+.strength-meter.weak .strength-text { color: #ff6b6b; }
+.strength-meter.medium .strength-text { color: #feca57; }
+.strength-meter.strong .strength-text { color: #1dd1a1; }
+
+/* Small screens */
+@media (max-width: 420px) {
+  .signup-card {
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 92%;
+  }
+  .left-icon { font-size: 18px; }
+  .input-wrap input { padding-right: 42px; }
+}
