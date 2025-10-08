@@ -20,6 +20,7 @@ import trip from "../images/trip.png";
 
 import Signup from "./Signup";
 import MoodTripPlanner from "./MoodTripPlanner";
+import Footer from "./Footer";
 import "./Home.css";
 
 /* animations (unchanged) */
@@ -278,6 +279,13 @@ export default function Home() {
     }
     setNewsletterError("");
     navigate("/subscribe", { state: { from: "footer", email: newsletterEmail } });
+  };
+
+  // wrapper to pass into Footer component: Footer will call onSubscribe(email) and expect a Promise<{ok: boolean}>
+  const footerOnSubscribe = async (email) => {
+    if (!validateEmail(email)) return { ok: false };
+    navigate("/subscribe", { state: { from: "footer", email } });
+    return { ok: true };
   };
 
   // --- LOGOUT handler: clear currentUser and show only Signup button, open signup and navigate to /signup
@@ -688,8 +696,9 @@ export default function Home() {
               <div><button className="btn-primary" style={{ marginLeft: 8 }} onClick={() => navigate("/results")}>Start Now</button></div>
             </motion.div>
 
-            {/* Footer (moved to Footer.jsx earlier) — you can keep your original footer JSX or import Footer */}
-            {/* ... (footer markup unchanged) ... */}
+            {/* Footer (moved to Footer.jsx) — using the Footer component here (keeps your existing footer handlers) */}
+            <Footer onSubscribe={footerOnSubscribe} />
+
           </div> {/* .home-inner */}
         </motion.main>
       </AnimatePresence>
