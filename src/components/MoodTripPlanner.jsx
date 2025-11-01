@@ -152,13 +152,22 @@ export default function MoodTripPlanner() {
       .mood-body::-webkit-scrollbar{width:10px}
       .mood-body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--g-a),var(--g-b));border-radius:8px}
       .mood-row{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-      .chip{padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer;border:1px solid rgba(6,22,18,0.06);background:rgba(255,255,255,0.95);color:var(--ink);transition:transform .12s}
+      .chip {
+        padding: 6px 66px; /* slightly less height, more width */
+        border-radius: 20px; /* less than 999px gives an oval shape */
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid rgba(6, 22, 18, 0.06);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--ink);
+        transition: transform 0.12s;
+      }
       .chip:hover{transform:translateY(-3px)}
       .chip.active{background:linear-gradient(90deg,var(--g-a),var(--g-b));color:white;box-shadow:0 12px 34px rgba(62,231,164,0.14)}
       .mood-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-      .mood-input{padding:10px 12px;border-radius:10px;border:1px solid rgba(6,22,18,0.06);background:rgba(255,255,255,0.96);width:100%}
+      .mood-input{padding:10px 12px;border-radius:10px;border:1px solid rgba(59, 104, 93, 0);background:rgba(1, 31, 19, 0.96);width:100%}
       .btn-generate{padding:12px 16px;border-radius:12px;border:none;cursor:pointer;color:white;font-weight:900;background:linear-gradient(90deg,var(--g-a),var(--g-b));flex:1;box-shadow:0 12px 30px rgba(62,231,164,0.18)}
-      .btn-ghost{padding:10px 12px;border-radius:12px;border:1px solid rgba(6,22,18,0.06);background:transparent;cursor:pointer}
+      .btn-ghost{padding:10px 12pxd;border-radius:12px;border:1px solid rgba(6,22,18,0.06);background:transparent;cursor:pointer}
       .mood-result{margin-top:14px;background:linear-gradient(180deg, rgba(255,255,255,0.98), #fbfbff);border-radius:12px;padding:12px;border:1px solid rgba(6,22,18,0.04);box-shadow:0 10px 28px rgba(6,22,18,0.04)}
       .mood-summary{display:flex;justify-content:space-between;align-items:center;gap:8px}
       .mood-day{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(6,22,18,0.03);display:flex;gap:12px;align-items:flex-start}
