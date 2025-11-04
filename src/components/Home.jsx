@@ -22,6 +22,7 @@ import Signup from "./Signup";
 import MoodTripPlanner from "./MoodTripPlanner";
 import Footer from "./Footer";
 import "./Home.css";
+import SubscribeModal from "./SubscribeModal";
 
 const API_BASE = "http://localhost:8083";
 
@@ -73,9 +74,6 @@ function StatCard({ icon, value, suffix = "", label, note }) {
   );
 }
 
-const LOCKED_PRO_SLUGS = new Set(["best-time", "hidden-gems"]);
-const LOCKED_STORIES = new Set(["story2", "story3"]);
-
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const [query, setQuery] = useState("");
@@ -86,12 +84,28 @@ export default function Home() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [signupOpen, setSignupOpen] = useState(false);
+  const [subscribeOpen, setSubscribeOpen] = useState(false); // kept, but not auto-used
 
-  // subscription state (derived from backend by email)
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subPlan, setSubPlan] = useState(null);
 
   const navigate = useNavigate();
+
+  // ✅ SINGLE LOGIC FOR LOCKED ACCESS (with plan in state)
+  const handleLockedAccess = (path) => {
+    if (!currentUser) {
+      // remember intent for post-login redirect to /subscribe
+      try { sessionStorage.setItem("LOCK_INTENT_PATH", path); } catch {}
+      setSignupOpen(true);
+      return;
+    }
+    if (!isSubscribed) {
+      navigate("/subscribe", { state: { email: currentUser.email, from: path, plan: "premium" } });
+      return;
+    }
+    navigate("/subscribe")
+
+  };
 
   const STORAGE_KEY = "travel_home_top_deals_v1";
   const defaultInitialDeals = [
@@ -107,10 +121,10 @@ export default function Home() {
   ];
 
   const story1 = adv;
-  const story2 = sunset; // LOCKED
-  const story3 = city;   // LOCKED
+  const story2 = sunset;
+  const story3 = city;
 
-  // ---------- init UI & user
+  // ------- UI INIT + USER INIT
   useEffect(() => {
     const saved = localStorage.getItem("tm_dark_mode");
     if (saved) setDarkMode(saved === "true");
@@ -145,7 +159,7 @@ export default function Home() {
     localStorage.setItem("tm_dark_mode", darkMode);
   }, [darkMode]);
 
-  // reflect changes to currentUser from other tabs
+  // reflect changes to currentUser from other tabs and subscription keys
   useEffect(() => {
     const onStorage = (e) => {
       if (e.key === "currentUser") {
@@ -161,7 +175,6 @@ export default function Home() {
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ---- subscription check by email (tries /check first; falls back to list)
@@ -177,7 +190,6 @@ export default function Home() {
         return;
       }
 
-      // try dedicated check
       let ok = false;
       let plan = null;
       try {
@@ -186,14 +198,9 @@ export default function Home() {
           const data = await r.json();
           ok = !!data?.subscribed;
           plan = data?.plan || null;
-        } else {
-          ok = false;
         }
-      } catch {
-        ok = false;
-      }
+      } catch {}
 
-      // fallback to GET /api/subscribe (list) — search by email
       if (!ok) {
         const r2 = await fetch(`${API_BASE}/api/subscribe`);
         if (r2.ok) {
@@ -219,50 +226,7 @@ export default function Home() {
   // run on mount & when user changes
   useEffect(() => {
     checkSubscription();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.email]);
-
-  // ---- helpers
-  const requireSubAndNavigate = (returnToPath, extra = {}) => {
-    // already subscribed → go
-    if (isSubscribed) {
-      navigate(returnToPath, extra);
-      return;
-    }
-    // save intent (both in state+sessionStorage)
-    const intent = { path: returnToPath, extra };
-    sessionStorage.setItem("LOCK_INTENT", JSON.stringify(intent));
-    navigate("/subscribe", { state: { from: "lock", returnTo: intent, email: currentUser?.email || "" } });
-  };
-
-  const handleLockedStory = (which) => {
-    if (which === "story2") {
-      return requireSubAndNavigate("/sunset-escapes", { state: { autoOpen: "story2" } });
-    }
-    if (which === "story3") {
-      return requireSubAndNavigate("/city-and-sea", { state: { autoOpen: "story3" } });
-    }
-  };
-
-  const handleProClick = (slug) => {
-    const routeMap = {
-      "best-time": "/best-time",
-      explore: "/explore",
-      trips: "/trips",
-      "hidden-gems": "/hidden-gems",
-      budget: "/budget",
-      "local-guides": "/local-guides",
-    };
-    const path = routeMap[slug] || `/${slug}`;
-
-    if (LOCKED_PRO_SLUGS.has(slug) && !isSubscribed) {
-      return requireSubAndNavigate(path, { state: { autoOpen: slug } });
-    }
-    navigate(path);
-  };
-
-  const goExplore = (item) => navigate(`/explore/${item.id}`, { state: { item } });
-  const goBook = (item) => navigate(`/book/${item.id}`, { state: { item } });
 
   // search
   const simulateSearch = (e) => {
@@ -291,19 +255,8 @@ export default function Home() {
     { id: 103, city: "Kyoto", price: "$349", img: Kyoto },
   ]), []);
 
-  // footer newsletter
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterError, setNewsletterError] = useState("");
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const handleFooterSubscribe = (e) => {
-    e.preventDefault();
-    if (!newsletterEmail || !validateEmail(newsletterEmail)) {
-      setNewsletterError("Please enter a valid email address.");
-      return;
-    }
-    setNewsletterError("");
-    navigate("/subscribe", { state: { from: "footer", email: newsletterEmail } });
-  };
+
   const footerOnSubscribe = async (email) => {
     if (!validateEmail(email)) return { ok: false };
     navigate("/subscribe", { state: { from: "footer", email } });
@@ -317,6 +270,9 @@ export default function Home() {
     try { navigate("/signup"); } catch {}
   };
 
+  const goExplore = (item) => navigate(`/explore/${item.id}`, { state: { item } });
+  const goBook = (item) => navigate(`/book/${item.id}`, { state: { item } });
+
   return (
     <div className={`home-root ${darkMode ? "dark" : "light"}`}>
       <AnimatePresence mode="wait">
@@ -328,7 +284,6 @@ export default function Home() {
             <nav className="nav glass" aria-label="Main navigation">
               <div className="nav-left">
                 <img src={logo} alt="TravelForge logo" className="logo" />
-                <div className="brand" />
               </div>
 
               <div className="nav-right">
@@ -346,7 +301,6 @@ export default function Home() {
                       {currentUser.email || currentUser.name}
                     </span>
 
-                    {/* tiny sub badge */}
                     {isSubscribed && (
                       <span className="sub-badge" style={{ fontWeight: 800, fontSize: 12, background: "#d7ffea", color: "#014d3e", padding: "4px 8px", borderRadius: 10, marginRight: 8 }}>
                         SUBSCRIBED{subPlan ? ` • ${subPlan}` : ""}
@@ -460,7 +414,7 @@ export default function Home() {
               </div>
 
               <div className="top-deals-grid">
-                {[...defaultInitialDeals.slice(0, 6)].map((r) => (
+                {defaultInitialDeals.slice(0, 6).map((r) => (
                   <motion.article key={r.id} className="card" variants={cardVariants} initial="hidden" animate="visible" whileHover={{ y: -10, boxShadow: "0 30px 70px rgba(0, 0, 0, 0.33)", scale: 1.01 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}>
                     <img src={r.img} alt={r.city} className="card-media" />
                     <div className="card-body">
@@ -495,30 +449,27 @@ export default function Home() {
                     { title: "Local Guides", emoji: "🗺️", hint: "Insider tips for your trip", img: night, slug: "local-guides", locked: false },
                   ].map((p, idx) => {
                     const isLocked = p.locked && !isSubscribed;
+                    const path = `/${p.slug}`;
+
                     return (
                       <motion.div
                         key={p.slug}
                         className={`pro-card boutique ${isLocked ? "locked-card" : ""}`}
-                        onClick={() => (isLocked ? requireSubAndNavigate(`/${p.slug}`, { state: { autoOpen: p.slug } }) : handleProClick(p.slug))}
+                        onClick={() => isLocked ? handleLockedAccess(path) : navigate(path)}
                         whileHover={{ y: -10, rotate: -0.6 }}
                         whileTap={{ scale: 0.995 }}
                         initial={{ opacity: 0, y: 14 }}
                         animate={{ opacity: 1, y: 0, transition: { delay: 0.06 * idx, duration: 0.46, ease: "easeOut" } }}
                         role="button"
                         tabIndex={0}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            isLocked ? requireSubAndNavigate(`/${p.slug}`, { state: { autoOpen: p.slug } }) : handleProClick(p.slug);
-                          }
-                        }}
                         aria-label={p.title}
                       >
                         {isLocked && (
-                          <div className="lock-overlay" onClick={() => requireSubAndNavigate(`/${p.slug}`, { state: { autoOpen: p.slug } })}>
+                          <div className="lock-overlay" onClick={() => handleLockedAccess(path)}>
                             <div className="lock-pill">🔒 Subscribe to unlock</div>
                           </div>
                         )}
+
                         <div className="pro-header-pill" aria-hidden><span className="pill-dot">✦</span></div>
                         <div className="pro-inner">
                           <div className="pro-text">
@@ -528,7 +479,7 @@ export default function Home() {
                             </div>
                             <p className="pro-hint">{p.hint}</p>
                             <div className="pro-cta-row">
-                              <button className="pro-open" onClick={(e) => { e.stopPropagation(); isLocked ? requireSubAndNavigate(`/${p.slug}`, { state: { autoOpen: p.slug } }) : handleProClick(p.slug); }}>
+                              <button className="pro-open" onClick={(e) => { e.stopPropagation(); handleLockedAccess(path); }}>
                                 {isLocked ? "Unlock" : "Open"}
                               </button>
                               <button className="pro-save" onClick={(e) => { e.stopPropagation(); navigate("/saved"); }} aria-label={`Save ${p.title}`}>
@@ -577,7 +528,7 @@ export default function Home() {
                       whileHover={{ y: -8, scale: 1.01 }}
                     >
                       {isLocked && (
-                        <div className="lock-overlay" onClick={() => requireSubAndNavigate(s.path, { state: { autoOpen: s.key } })}>
+                        <div className="lock-overlay" onClick={() => handleLockedAccess(s.path)}>
                           <div className="lock-pill">🔒 Subscribe to read</div>
                         </div>
                       )}
@@ -611,7 +562,7 @@ export default function Home() {
                             <button
                               className="btn-primary small"
                               onClick={() => {
-                                if (isLocked) return requireSubAndNavigate(s.path, { state: { autoOpen: s.key } });
+                                if (isLocked) return handleLockedAccess(s.path);
                                 navigate(s.path);
                               }}
                             >
@@ -637,10 +588,9 @@ export default function Home() {
               <div><button className="btn-primary" style={{ marginLeft: 8 }} onClick={() => navigate("/results")}>Start Now</button></div>
             </motion.div>
 
-            {/* Footer */}
+            {/* FOOTER */}
             <Footer onSubscribe={footerOnSubscribe} />
           </div>
-
         </motion.main>
       </AnimatePresence>
 
@@ -664,7 +614,7 @@ export default function Home() {
         </motion.button>
       )}
 
-      {/* Signup modal */}
+      {/* Signup modal with AUTO-REDIRECT to /subscribe if there was a locked intent */}
       <Signup
         open={signupOpen}
         onClose={() => setSignupOpen(false)}
@@ -672,10 +622,30 @@ export default function Home() {
           localStorage.setItem("currentUser", JSON.stringify(user));
           setCurrentUser(user);
           setSignupOpen(false);
-          // refresh sub status right after signup
-          checkSubscription();
+          setIsSubscribed(false);
+          setSubPlan(null);
+          localStorage.removeItem("travelforge_sub_email");
+          localStorage.removeItem("travelforge_sub_plan");
+
+          // ✅ Auto-redirect to subscribe if user clicked a locked feature before login
+          try {
+            const pending = sessionStorage.getItem("LOCK_INTENT_PATH");
+            if (pending) {
+              sessionStorage.removeItem("LOCK_INTENT_PATH");
+              navigate("/subscribe", { state: { email: user.email, from: pending, plan: "premium" } });
+              return;
+            }
+          } catch {}
         }}
       />
+
+      {/* Subscribe Modal (kept, but not auto-opened; optional use) */}
+      {subscribeOpen && (
+        <SubscribeModal
+          open={subscribeOpen}
+          onClose={() => setSubscribeOpen(false)}
+        />
+      )}
     </div>
   );
 }
