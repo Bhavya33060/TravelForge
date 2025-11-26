@@ -25,7 +25,20 @@ import Footer from "./Footer";
 import "./Home.css";
 import SubscribeModal from "./SubscribeModal";
 
-const API_BASE = "http://localhost:8084";
+function getBackendURL() {
+  const port = window.location.port;
+
+  // ⭐ Kubernetes frontend → backend
+  if (port === "32000") return "http://localhost:32001";
+
+  // ⭐ Docker frontend → backend
+  if (port === "3000") return "http://localhost:8084";
+
+  // ⭐ Local Vite
+  return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
+}
+
+const API_BASE = getBackendURL();
 
 // ---- small animation configs
 const pageVariants = {
@@ -75,7 +88,6 @@ function StatCard({ icon, value, suffix = "", label, note }) {
   );
 }
 // --- Helper: Save item to localStorage ---
-// --- Helper: Save item to backend ---
 async function saveItem(item) {
   try {
     const payload = {
@@ -83,11 +95,11 @@ async function saveItem(item) {
       city: item.city || item.title,
       price: item.price || "N/A",
       img: item.img,
-      kind: "deal", // or "story"/"guide" (you can adjust later)
+      kind: "deal",
       savedAt: new Date().toISOString(),
     };
 
-    const res = await fetch("http://localhost:8084/api/saved", {
+    const res = await fetch(`${API_BASE}/api/saved`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -103,6 +115,7 @@ async function saveItem(item) {
     console.error("Failed to save item:", e);
   }
 }
+
 
 
 
