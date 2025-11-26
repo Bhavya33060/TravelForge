@@ -23,6 +23,7 @@ const API_BASE = `${BACKEND_BASE}/api/subscribe`;
 
 
 
+
 export default function SubscribeModal() {
   const loc = useLocation();
   const navigate = useNavigate();
@@ -96,7 +97,8 @@ export default function SubscribeModal() {
 
   async function postSubscription(payload) {
     try {
-      const res = await fetch(`${API_BASE}/api/subscribe`, {
+     const res = await fetch(API_BASE, {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
