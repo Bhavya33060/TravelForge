@@ -17,7 +17,8 @@ function getBackendURL() {
   return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
 }
 
-const API_BASE = getBackendURL();
+const BACKEND_BASE = getBackendURL();
+const API_BASE = `${BACKEND_BASE}/api/subscribe`;
 
 
 
@@ -438,3 +439,4 @@ export default function SubscribeModal() {
     </div>
   );
 }
+
