@@ -23,7 +23,7 @@ L.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl });
 
 /* ---------- helpers ---------- */
 // ---------------- Backend URL Resolver ----------------
-/*function getBackendURL() {
+function getBackendURL() {
   const port = window.location.port;
 
   // ⭐ Kubernetes frontend → backend
@@ -34,9 +34,7 @@ L.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl });
 
   // ⭐ Vite development (5173)
   return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
-}*/
-const API_BASE = getBackendURL();
-
+}
 
 const API_BASE = getBackendURL();
 // -------------------------------------------------------
@@ -154,7 +152,8 @@ export default function Trips() {
 
   // load from backend and merge with builtin
   useEffect(() => {
-   fetch(`${API_BASE}/trip/all`)
+   fetch(`${API_BASE}/travel/trip/all`)
+
 
 
       .then((res) => res.json())
