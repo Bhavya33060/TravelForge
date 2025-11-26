@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const API_BASE = `${BACKEND_BASE}/api/saved`;
-
 
 // ---------------- Backend URL Resolver ----------------
 function getBackendURL() {
@@ -20,7 +18,8 @@ function getBackendURL() {
   return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
 }
 
-const BACKEND_BASE = getBackendURL();
+const BACKEND_BASE = getBackendURL();      // ✅ define AFTER function
+const API_BASE = `${BACKEND_BASE}/api/saved`;
 // -------------------------------------------------------
 
 
