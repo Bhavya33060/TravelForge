@@ -13,6 +13,16 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./Trips.css";
 
+// ⭐ ADD THIS BELOW IMPORTS
+function getBackendURL() {
+  const port = window.location.port;
+
+  if (port === "32000") return "http://localhost:32001";
+  if (port === "3000") return "http://localhost:8084";
+
+  return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
+}
+const API_BASE = getBackendURL();
 /** Ultimate Travel OS — Full-screen Builder */
 export default function TripBuilder({ onClose, onCreate }) {
   const navigate = useNavigate();
@@ -37,19 +47,9 @@ export default function TripBuilder({ onClose, onCreate }) {
     "Sunscreen",
   ]);
   const [notes, setNotes] = useState("");
-import "./Trips.css";
-import TripBuilder from "./TripBuilder";
 
-// ⭐ ADD THIS BELOW IMPORTS
-function getBackendURL() {
-  const port = window.location.port;
 
-  if (port === "32000") return "http://localhost:32001";
-  if (port === "3000") return "http://localhost:8084";
 
-  return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
-}
-const API_BASE = getBackendURL();
 
   /** Auto date range display */
   const dateRange = useMemo(() => {
