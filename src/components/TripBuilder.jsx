@@ -37,6 +37,19 @@ export default function TripBuilder({ onClose, onCreate }) {
     "Sunscreen",
   ]);
   const [notes, setNotes] = useState("");
+import "./Trips.css";
+import TripBuilder from "./TripBuilder";
+
+// ⭐ ADD THIS BELOW IMPORTS
+function getBackendURL() {
+  const port = window.location.port;
+
+  if (port === "32000") return "http://localhost:32001";
+  if (port === "3000") return "http://localhost:8084";
+
+  return import.meta.env.VITE_BACKEND_URL || "http://localhost:8084";
+}
+const API_BASE = getBackendURL();
 
   /** Auto date range display */
   const dateRange = useMemo(() => {
@@ -92,7 +105,8 @@ export default function TripBuilder({ onClose, onCreate }) {
       days: days.map((d) => d.title),
     };
 
-    fetch("http://localhost:8084/trip/create", {
+    fetch(`${API_BASE}/trip/create`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTrip),
