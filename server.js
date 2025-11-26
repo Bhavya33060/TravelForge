@@ -17,10 +17,33 @@ const distPath = path.join(__dirname, "dist");
 
 app.use(express.static(distPath));
 
-// --- API ROUTE ---
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+/* -----------------------------
+   OPTIONAL OpenAI client
+   (prevents crash if API key missing)
+------------------------------ */
+let client = null;
+if (process.env.OPENAI_API_KEY) {
+  console.log("🔑 OpenAI API Key detected → AI chat ENABLED");
+  client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+} else {
+  console.log("⚠️ No OpenAI API Key found → AI chat DISABLED");
+}
 
+/* -------------------------------
+   Support Chat API (safe version)
+------------------------------- */
 app.post("/api/support-chat", async (req, res) => {
+  // AI disabled → return demo response
+  if (!client) {
+    return res.json({
+      reply: {
+        role: "assistant",
+        content:
+          "AI support chat is disabled because no OpenAI API key is configured.",
+      },
+    });
+  }
+
   try {
     const { messages } = req.body;
     const completion = await client.chat.completions.create({
@@ -29,12 +52,14 @@ app.post("/api/support-chat", async (req, res) => {
     });
     res.json({ reply: completion.choices[0].message });
   } catch (err) {
-    console.error(err);
+    console.error("OpenAI Error:", err);
     res.status(500).json({ error: "OpenAI error" });
   }
 });
 
-// Fallback for React Router (SPA)
+/* -------------------------------
+   Fallback for SPA (React Router)
+------------------------------- */
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
