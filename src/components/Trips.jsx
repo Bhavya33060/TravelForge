@@ -152,7 +152,8 @@ export default function Trips() {
 
   // load from backend and merge with builtin
   useEffect(() => {
-   fetch(`${API_BASE}/travel/trip/all`)
+   fetch(`${API_BASE}/trip/all`)
+
 
 
 
