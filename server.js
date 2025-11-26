@@ -64,7 +64,7 @@ app.post("/api/support-chat", async (req, res) => {
 /* ------------------------------------
    Fallback for React Router SPA
 ------------------------------------- */
-app.get("/*", (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
